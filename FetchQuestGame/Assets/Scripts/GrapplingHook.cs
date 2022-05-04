@@ -4,52 +4,66 @@ using UnityEngine;
 
 public class GrapplingHook : MonoBehaviour
 {
-    /*
     public float grapplingSpeed;
-    Rigidbody2D rigidbody;
+    public float projectileSpeed;
+    public float lifespan;
+
+    Rigidbody rigidbody;
     bool grapplingMovement;
     GameObject player;
-    Player playerScript;
+    Camera camera;
+    float dist;
 
     void Start()
     {
+        camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         grapplingMovement = false;
         // get player script
-        player = GameObject.Find("Player1");
-        playerScript = player.GetComponent<Player>();
-        rigidbody = GetComponent<Rigidbody2D>(); // get rigidbody
+        player = GameObject.Find("Player");
+        rigidbody = GetComponent<Rigidbody>(); // get rigidbody
+        StartCoroutine(DestroyAfterLifespan());
+
+        // start velocity
+        rigidbody.velocity = camera.transform.forward * projectileSpeed;
     }
 
-    void OnTriggerEnter2D(Collider2D collider)
+    void OnTriggerEnter(Collider collider)
     {
         // if collides with wall
         if (collider.gameObject.tag == "Wall")
         {
-            rigidbody.velocity = new Vector2(0, 0); // stop hook movement
+            rigidbody.velocity = new Vector3(0, 0, 0); // stop hook movement
             grapplingMovement = true;
         }
     }
 
     void FixedUpdate()
     {
-        Vector2 playerPos = player.transform.position;
-        float dist = Mathf.Sqrt(Mathf.Pow(playerPos.x - transform.position.x, 2)
-            + Mathf.Pow(playerPos.y - transform.position.y, 2));
+        Vector3 playerPos = player.transform.position;
+        dist = Mathf.Sqrt(Mathf.Pow(playerPos.x - transform.position.x, 2)
+            + Mathf.Pow(playerPos.z - transform.position.z, 2));
 
-        //Debug.Log(dist);
-        if (dist < 3)
+        // if the player is pulled near the grappling hook, destroy it
+        if (dist < 3 && grapplingMovement == true)
         {
-            grapplingMovement = false;
+            Destroy(gameObject);
         }
         if (grapplingMovement)
         {
+            Vector3 directionToGrapple = Vector3.Normalize(transform.position - player.transform.position);
+
             player.transform.position =
-                    Vector2.MoveTowards(
+                    Vector3.MoveTowards(
                         playerPos,
-                        transform.position,
+                        directionToGrapple,
                         grapplingSpeed * Time.fixedDeltaTime
                     );
         }
     }
-    */
+
+    IEnumerator DestroyAfterLifespan()
+    {
+        yield return new WaitForSeconds(lifespan);
+        Destroy(gameObject);
+    }
 }

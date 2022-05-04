@@ -263,9 +263,9 @@ namespace StarterAssets
         {
             // add a check so only one exists
             // give grappling hook velocity, use script from online game, and have them get destroyed after set time unless collision
-            if (_input.shoot)
+            if (_input.shoot && GameObject.FindGameObjectsWithTag("GrapplingHook").Length < 1)
             {
-                Instantiate(grapplingHook);
+                Instantiate(grapplingHook, transform.position, Quaternion.identity);
             }
         }
 	}
