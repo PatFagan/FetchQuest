@@ -43,6 +43,9 @@ namespace StarterAssets
 		public float TopClamp = 90.0f;
 		public float BottomClamp = -90.0f;
 
+        [Space(10)]
+        public GameObject grapplingHook;
+
 		// cinemachine
 		private float _cinemachineTargetPitch;
 
@@ -90,7 +93,8 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
-		}
+            ShootCheck();
+        }
 
 		private void LateUpdate()
 		{
@@ -254,5 +258,15 @@ namespace StarterAssets
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
 		}
+
+        private void ShootCheck()
+        {
+            // add a check so only one exists
+            // give grappling hook velocity, use script from online game, and have them get destroyed after set time unless collision
+            if (_input.shoot)
+            {
+                Instantiate(grapplingHook);
+            }
+        }
 	}
 }
