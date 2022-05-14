@@ -332,3 +332,4 @@ Received Import Request.
 Start importing Assets/Wall.physicMaterial using Guid(7de3aa264247cc740bbada694fdaab24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ce2254aadfd1c182d1add8ac812eabc7') in 0.015444 seconds 
   Import took 0.019948 seconds .
 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
