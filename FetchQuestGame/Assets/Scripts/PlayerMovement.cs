@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private float sensMultiplier = 1f;
 
     //Movement
+    float targetSpeed;
     public float moveSpeed = 4500;
     public bool grounded;
     public LayerMask whatIsGround;
@@ -84,6 +85,14 @@ public class PlayerMovement : MonoBehaviour
         jumping = Input.GetButton("Jump");
         crouching = Input.GetKey(KeyCode.LeftControl);
 
+        // sprint timeout
+        sprintTimer -= Time.deltaTime;
+        if (Input.GetButtonDown("Sprint") && sprintTimer < 0f)
+        {
+            print(targetSpeed);
+            StartCoroutine(Sprint());
+        }
+
         //Crouching
         if (Input.GetKeyDown(KeyCode.LeftControl))
             StartCrouch();
@@ -121,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
     private void Movement()
     {
         //Extra gravity
-        rigidbody.AddForce(Vector3.down * Time.deltaTime * 70f);
+        rigidbody.AddForce(Vector3.down * 300f);
 
         //Find actual velocity relative to where player is looking
         Vector2 mag = FindVelRelativeToLook();
@@ -141,15 +150,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // set target speed based on move speed, sprint speed and if sprint is pressed
-        float targetSpeed = sprinting ? sprintSpeed : moveSpeed;
-
-        // sprint timeout
-        //sprintTimer -= Time.deltaTime;
-        //if (Input.GetButtonDown("Sprint") && sprintTimer < 0f)
-        //{
-        //    StartCoroutine(Sprint());
-        //}
-
+        targetSpeed = sprinting ? sprintSpeed : moveSpeed;
+        
         //Apply forces to move player
         rigidbody.AddForce(orientation.transform.forward * vertical * targetSpeed);
         rigidbody.AddForce(orientation.transform.right * horizontal * targetSpeed);
