@@ -4,11 +4,12 @@ public class GrapplingGun : MonoBehaviour
 {
 
     private LineRenderer lr;
-    private Vector3 grapplePoint;
+    public Vector3 grapplePoint;
     public LayerMask whatIsGrappleable;
     public Transform gunTip, camera, player;
     private float maxDistance = 100f;
     private SpringJoint joint;
+    public bool isGrappling;
 
     void Awake()
     {
@@ -17,6 +18,8 @@ public class GrapplingGun : MonoBehaviour
 
     void Update()
     {
+	    transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, camera.transform.rotation, 5f * Time.deltaTime);
+   
         if (Input.GetMouseButtonDown(0))
         {
             StartGrapple();
@@ -41,6 +44,7 @@ public class GrapplingGun : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(camera.position, camera.forward, out hit, maxDistance, whatIsGrappleable))
         {
+            isGrappling = true;
             grapplePoint = hit.point;
             joint = player.gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;
@@ -68,6 +72,7 @@ public class GrapplingGun : MonoBehaviour
     /// </summary>
     void StopGrapple()
     {
+        isGrappling = false;
         lr.positionCount = 0;
         Destroy(joint);
     }

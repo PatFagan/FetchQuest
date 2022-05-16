@@ -47,6 +47,10 @@ public class PlayerMovement : MonoBehaviour
     private float sprintTimer = 0.0f;
     public float sprintCooldown = 1f;
 
+    // Grapple
+    Vector3 grapplePoint;
+    public GrapplingGun grapplingGunScript;
+
     //Sliding
     private Vector3 normalVector = Vector3.up;
     private Vector3 wallNormalVector;
@@ -71,8 +75,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        GetGrapplePoint();
         MyInput();
         Look();
+    }
+
+    private void GetGrapplePoint()
+    {
+        grapplePoint = grapplingGunScript.grapplePoint;
     }
 
     /// <summary>
@@ -155,6 +165,17 @@ public class PlayerMovement : MonoBehaviour
         //Apply forces to move player
         rigidbody.AddForce(orientation.transform.forward * vertical * targetSpeed);
         rigidbody.AddForce(orientation.transform.right * horizontal * targetSpeed);
+
+        if (grapplingGunScript.isGrappling)
+        {
+            float grapplingSpeed = 30.0f;
+            gameObject.transform.position =
+                Vector3.MoveTowards(
+                    transform.position,
+                    grapplePoint,
+                    grapplingSpeed * Time.fixedDeltaTime
+                );
+        }
     }
 
     private void Jump()
