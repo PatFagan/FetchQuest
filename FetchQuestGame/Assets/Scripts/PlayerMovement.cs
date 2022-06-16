@@ -5,10 +5,8 @@ using System.Collections.Generic;
 
 public class PlayerMovement : MonoBehaviour
 {
-
-    //Assingables
-    public Transform playerCam;
-    public Transform orientation;
+    public Transform camera;
+    Transform orientation;
 
     //Other
     private Rigidbody rigidbody;
@@ -47,10 +45,6 @@ public class PlayerMovement : MonoBehaviour
     private float sprintTimer = 0.0f;
     public float sprintCooldown = 1f;
 
-    // Grapple
-    Vector3 grapplePoint;
-    public GrapplingGun grapplingGunScript;
-
     //Sliding
     private Vector3 normalVector = Vector3.up;
     private Vector3 wallNormalVector;
@@ -58,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
+        orientation = gameObject.GetComponent<Transform>();
     }
 
     void Start()
@@ -67,7 +62,6 @@ public class PlayerMovement : MonoBehaviour
         Cursor.visible = false;
     }
 
-
     private void FixedUpdate()
     {
         Movement();
@@ -75,14 +69,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        GetGrapplePoint();
         MyInput();
         Look();
-    }
-
-    private void GetGrapplePoint()
-    {
-        grapplePoint = grapplingGunScript.grapplePoint;
     }
 
     /// <summary>
@@ -99,7 +87,6 @@ public class PlayerMovement : MonoBehaviour
         sprintTimer -= Time.deltaTime;
         if (Input.GetButtonDown("Sprint") && sprintTimer < 0f)
         {
-            print(targetSpeed);
             StartCoroutine(Sprint());
         }
 
@@ -139,15 +126,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Movement()
     {
-        //Extra gravity
-        rigidbody.AddForce(Vector3.down * 300f);
-
-        //Find actual velocity relative to where player is looking
-        Vector2 mag = FindVelRelativeToLook();
-        float xMag = mag.x, yMag = mag.y;
-
-        //Counteract sliding and sloppy movement
-        //CounterMovement(x, y, mag);
+        // extra gravity
+        rigidbody.AddForce(Vector3.down * 500f);
 
         //If holding jump && ready to jump, then jump
         if (readyToJump && jumping) Jump();
@@ -162,31 +142,19 @@ public class PlayerMovement : MonoBehaviour
         // set target speed based on move speed, sprint speed and if sprint is pressed
         targetSpeed = sprinting ? sprintSpeed : moveSpeed;
         
-        //Apply forces to move player
+        // apply forces to move player
         rigidbody.AddForce(orientation.transform.forward * vertical * targetSpeed);
         rigidbody.AddForce(orientation.transform.right * horizontal * targetSpeed);
-
-        if (grapplingGunScript.isGrappling)
-        {
-            float grapplingSpeed = 30.0f;
-            gameObject.transform.position =
-                Vector3.MoveTowards(
-                    transform.position,
-                    grapplePoint,
-                    grapplingSpeed * Time.fixedDeltaTime
-                );
-        }
     }
 
     private void Jump()
     {
         if (grounded && readyToJump)
         {
-            //Add jump forces
+            // add jump force
             rigidbody.AddForce(Vector2.up * jumpForce);
-            //rigidbody.AddForce(normalVector * jumpForce * 0.5f);
 
-            //If jumping while falling, reset y velocity.
+            // if jumping while falling, reset y velocity.
             Vector3 vel = rigidbody.velocity;
             if (rigidbody.velocity.y < 0.5f)
                 rigidbody.velocity = new Vector3(vel.x, 0, vel.z);
@@ -210,7 +178,7 @@ public class PlayerMovement : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.fixedDeltaTime * sensMultiplier;
 
         //Find current look rotation
-        Vector3 rot = playerCam.transform.localRotation.eulerAngles;
+        Vector3 rot = camera.transform.localRotation.eulerAngles;
         desiredX = rot.y + mouseX;
 
         //Rotate, and also make sure we dont over- or under-rotate.
@@ -218,73 +186,24 @@ public class PlayerMovement : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         //Perform the rotations
-        playerCam.transform.localRotation = Quaternion.Euler(xRotation, desiredX, 0);
+        camera.transform.localRotation = Quaternion.Euler(xRotation, desiredX, 0);
         orientation.transform.localRotation = Quaternion.Euler(0, desiredX, 0);
     }
 
-    /// <summary>
-    /// Find the velocity relative to where the player is looking
-    /// Useful for vectors calculations regarding movement and limiting movement
-    /// </summary>
-    /// <returns></returns>
-    public Vector2 FindVelRelativeToLook()
-    {
-        float lookAngle = orientation.transform.eulerAngles.y;
-        float moveAngle = Mathf.Atan2(rigidbody.velocity.x, rigidbody.velocity.z) * Mathf.Rad2Deg;
-
-        float u = Mathf.DeltaAngle(lookAngle, moveAngle);
-        float v = 90 - u;
-
-        float magnitue = rigidbody.velocity.magnitude;
-        float yMag = magnitue * Mathf.Cos(u * Mathf.Deg2Rad);
-        float xMag = magnitue * Mathf.Cos(v * Mathf.Deg2Rad);
-
-        return new Vector2(xMag, yMag);
-    }
-
-    private bool IsFloor(Vector3 v)
-    {
-        float angle = Vector3.Angle(Vector3.up, v);
-        return angle < maxSlopeAngle;
-    }
-
-    private bool cancellingGrounded;
-
-    /// <summary>
-    /// Handle ground detection
-    /// </summary>
+    // check if grounded
     private void OnCollisionStay(Collision other)
     {
-        //Make sure we are only checking for walkable layers
-        int layer = other.gameObject.layer;
-        if (whatIsGround != (whatIsGround | (1 << layer))) return;
-
-        //Iterate through every collision in a physics update
-        for (int i = 0; i < other.contactCount; i++)
+        if (other.gameObject.tag == "Ground")
         {
-            Vector3 normal = other.contacts[i].normal;
-            //FLOOR
-            if (IsFloor(normal))
-            {
-                grounded = true;
-                cancellingGrounded = false;
-                normalVector = normal;
-                CancelInvoke(nameof(StopGrounded));
-            }
-        }
-
-        //Invoke ground/wall cancel, since we can't check normals with CollisionExit
-        float delay = 3f;
-        if (!cancellingGrounded)
-        {
-            cancellingGrounded = true;
-            Invoke(nameof(StopGrounded), Time.deltaTime * delay);
+            grounded = true;
         }
     }
 
-    private void StopGrounded()
+    private void OnCollisionExit(Collision other)
     {
-        grounded = false;
+        if (other.gameObject.tag == "Ground")
+        {
+            grounded = false;
+        }
     }
-
 }
