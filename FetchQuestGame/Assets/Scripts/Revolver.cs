@@ -6,6 +6,7 @@ public class Revolver : MonoBehaviour
 {
     public Transform camera, gunTip;
     public GameObject bullet;
+    int bulletCount = 6;
 
     // Start is called before the first frame update
     void Start()
@@ -18,9 +19,10 @@ public class Revolver : MonoBehaviour
     {
         transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, camera.transform.rotation, 5f * Time.deltaTime);
 
-        if (Input.GetButtonDown("Shoot"))
+        if (Input.GetButtonDown("Shoot") && bulletCount > 0)
         {
             Instantiate(bullet, gunTip.position, Quaternion.identity);
+            bulletCount--;
         }
     }
 }
