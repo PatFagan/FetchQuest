@@ -7,6 +7,8 @@ public class Revolver : MonoBehaviour
     public Transform camera, gunTip;
     public GameObject bullet;
     int bulletCount = 6;
+    bool drawn = false;
+    public Animation draw;
 
     // Start is called before the first frame update
     void Start()
@@ -17,12 +19,21 @@ public class Revolver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // gun faces camera
         transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, camera.transform.rotation, 5f * Time.deltaTime);
 
-        if (Input.GetButtonDown("Shoot") && bulletCount > 0)
+        // shoot gun
+        if (Input.GetButtonDown("Shoot") && bulletCount > 0 && drawn == true)
         {
             Instantiate(bullet, gunTip.position, Quaternion.identity);
             bulletCount--;
+        }
+
+        // draw gun
+        if (Input.GetButtonDown("Draw"))
+        {
+            drawn = true;
+            anim.Play("DrawGun");
         }
     }
 }
