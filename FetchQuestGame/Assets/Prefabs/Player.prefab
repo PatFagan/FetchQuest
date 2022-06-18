@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7386746454668403738}
   m_Layer: 0
   m_Name: Revolver
-  m_TagString: Untagged
+  m_TagString: Revolver
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,6 +48,8 @@ MonoBehaviour:
   camera: {fileID: 0}
   gunTip: {fileID: 7386746454875514887}
   bullet: {fileID: 3529342636003749121, guid: a29b48b562d89444fac1c1c44d319e65, type: 3}
+  drawn: 0
+  anim: {fileID: 0}
 --- !u!1 &7386746454875514884
 GameObject:
   m_ObjectHideFlags: 0

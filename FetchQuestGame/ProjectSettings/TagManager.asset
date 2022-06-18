@@ -9,6 +9,7 @@ TagManager:
   - Wall
   - Ground
   - Enemy
+  - Revolver
   layers:
   - Default
   - TransparentFX

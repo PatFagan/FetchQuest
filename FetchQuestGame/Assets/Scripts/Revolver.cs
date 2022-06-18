@@ -7,7 +7,7 @@ public class Revolver : MonoBehaviour
     public Transform camera, gunTip;
     public GameObject bullet;
     int bulletCount = 6;
-    bool drawn = false;
+    public bool drawn = false;
     public Animator anim;
 
     // Start is called before the first frame update
