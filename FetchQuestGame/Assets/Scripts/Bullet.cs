@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Bullet : MonoBehaviour
 {
@@ -23,13 +24,19 @@ public class Bullet : MonoBehaviour
         // if collides with wall
         if (collider.gameObject.tag == "Wall")
         {
-            print("hit");
             Destroy(gameObject);
         }
         // if collides with wall
         if (collider.gameObject.tag == "Enemy")
         {
-            print("kill");
+            // check if enemy is the target
+            if (collider.gameObject.transform.parent.gameObject.GetComponent<Enemy>().enemyId == GameObject.FindGameObjectWithTag("WantedSystem").GetComponent<WantedSystem>().currentTarget)
+            {
+                print("correct target");
+                GameObject.FindGameObjectWithTag("WantedSystem").GetComponent<WantedSystem>().wantedText.text = "KILLED";
+            }
+
+            // kill enemy
             Destroy(collider.gameObject);
         }
     }

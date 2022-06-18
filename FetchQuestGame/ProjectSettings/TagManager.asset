@@ -11,6 +11,7 @@ TagManager:
   - Enemy
   - Revolver
   - Bullet
+  - WantedSystem
   layers:
   - Default
   - TransparentFX
