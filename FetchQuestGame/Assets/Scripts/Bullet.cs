@@ -30,6 +30,7 @@ public class Bullet : MonoBehaviour
         if (collider.gameObject.tag == "Enemy")
         {
             print("kill");
+            Destroy(collider.gameObject);
         }
     }
 }
