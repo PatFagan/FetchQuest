@@ -25,6 +25,8 @@ public class Revolver : MonoBehaviour
         // shoot gun
         if (Input.GetButtonDown("Shoot") && bulletCount > 0 && drawn == true)
         {
+            anim.Play("Recoil", 0, 0f);
+            //anim.Play("Base Layer.Bounce", 0, 0.25f)
             Instantiate(bullet, gunTip.position, Quaternion.identity);
             bulletCount--;
         }
