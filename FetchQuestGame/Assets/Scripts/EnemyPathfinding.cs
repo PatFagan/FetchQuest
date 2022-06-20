@@ -7,11 +7,11 @@ public class EnemyPathfinding : MonoBehaviour
 {
     // variables
     NavMeshAgent navMeshAgent;
-    bool wandering, scramming;
+    bool wandering, scramming, hasScrammedOnce;
     float dist;
     public float wanderSpeed, scramSpeed, timeBetweenMoves;
     Vector3 wanderPos;
-    public Transform escapeLoc;
+    Transform escapeLoc;
 
     Revolver revolverScript;
     // Start is called before the first frame update
@@ -23,6 +23,10 @@ public class EnemyPathfinding : MonoBehaviour
         navMeshAgent = gameObject.GetComponent<NavMeshAgent>(); // get navAgent component
         wandering = true;
 
+        hasScrammedOnce = false;
+
+        escapeLoc = GameObject.Find("EscapeLoc").GetComponent<Transform>();
+
         // start wandering
         if (wandering)
         {
@@ -31,18 +35,18 @@ public class EnemyPathfinding : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // calculate dist bw ai and targetLoc
         dist = Vector3.Distance(transform.position, wanderPos);
 
         scramming = revolverScript.drawn;
-        print(wanderPos);
 
         // if gun is drawn, ai's begin scramming
-        if (scramming)
+        if (scramming && hasScrammedOnce == false)
         {
             StartCoroutine(Scram());
+            hasScrammedOnce = true;
         }
 
         // enemy escapes at escape point
@@ -55,28 +59,30 @@ public class EnemyPathfinding : MonoBehaviour
     // selects a random pos and pathfinds there
     IEnumerator Wander()
     {
-        wanderPos = new Vector3(Random.Range(-10f, 10f), gameObject.transform.position.y, Random.Range(-10f, 10f));
-
-        navMeshAgent.SetDestination(wanderPos);
-
-        // wait until loc reached or time passed
-        float pauseTime = 10f;
-        yield return new WaitUntil(() =>
-        {
-            pauseTime -= Time.deltaTime;
-            return dist <= 1f || pauseTime <= 0;
-        });
-
-        yield return new WaitForSeconds(timeBetweenMoves);
         if (scramming == false)
+        {
+            wanderPos = new Vector3(Random.Range(-10f, 10f), gameObject.transform.position.y, Random.Range(-10f, 10f));
+
+            navMeshAgent.SetDestination(wanderPos);
+
+            // wait until loc reached or time passed
+            float pauseTime = 10f;
+            yield return new WaitUntil(() =>
+            {
+                pauseTime -= Time.deltaTime;
+                return dist <= 1f || pauseTime <= 0;
+            });
+
+            yield return new WaitForSeconds(timeBetweenMoves);
             StartCoroutine(Wander());
+        }
     }
 
     // increases wander speed
     IEnumerator Scram()
     {
         yield return new WaitForSeconds(.25f);
-        timeBetweenMoves = 0f;
+        timeBetweenMoves = .5f;
         navMeshAgent.speed = scramSpeed;
 
         yield return new WaitForSeconds(2f);

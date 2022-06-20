@@ -41,7 +41,6 @@ public class Bullet : MonoBehaviour
             // if enemy is not the target
             else if (collider.gameObject.transform.parent.gameObject.GetComponent<Enemy>().enemyId != wantedSystem.currentTarget)
             {
-                print("correct target");
                 wantedSystem.casualties++;
             }
 

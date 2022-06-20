@@ -10,15 +10,17 @@ public class WantedSystem : MonoBehaviour
     public int currentTarget;
     public Image currentTargetPoster;
     public TMP_Text wantedText, casualtiesDisplay, killsDisplay;
+    public GameObject restartButton;
 
     public GameObject leaderboard;
+    bool leaderboardEnabled = false;
 
     public int casualties, kills;
 
-    // Start is called before the first frame update
-    void Start()
+    public void SetTarget()
     {
         currentTarget = Random.Range(0, wantedPosters.Length);
+        leaderboardEnabled = true;
     }
 
     // Update is called once per frame
@@ -29,9 +31,10 @@ public class WantedSystem : MonoBehaviour
         casualtiesDisplay.text = casualties.ToString();
         killsDisplay.text = kills.ToString();
 
-        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0 && leaderboardEnabled)
         {
             leaderboard.SetActive(true);
+            restartButton.SetActive(true);
         }
     }
 }
