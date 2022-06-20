@@ -11,6 +11,7 @@ public class EnemyPathfinding : MonoBehaviour
     float dist;
     public float wanderSpeed, scramSpeed, timeBetweenMoves;
     Vector3 wanderPos;
+    public Transform escapeLoc;
 
     Revolver revolverScript;
     // Start is called before the first frame update
@@ -36,11 +37,18 @@ public class EnemyPathfinding : MonoBehaviour
         dist = Vector3.Distance(transform.position, wanderPos);
 
         scramming = revolverScript.drawn;
+        print(wanderPos);
 
         // if gun is drawn, ai's begin scramming
         if (scramming)
         {
             StartCoroutine(Scram());
+        }
+
+        // enemy escapes at escape point
+        if (wanderPos == escapeLoc.position && dist <= 2f)
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -60,7 +68,8 @@ public class EnemyPathfinding : MonoBehaviour
         });
 
         yield return new WaitForSeconds(timeBetweenMoves);
-        StartCoroutine(Wander());
+        if (scramming == false)
+            StartCoroutine(Wander());
     }
 
     // increases wander speed
@@ -69,5 +78,9 @@ public class EnemyPathfinding : MonoBehaviour
         yield return new WaitForSeconds(.25f);
         timeBetweenMoves = 0f;
         navMeshAgent.speed = scramSpeed;
+
+        yield return new WaitForSeconds(2f);
+        wanderPos = escapeLoc.position; 
+        navMeshAgent.SetDestination(wanderPos);
     }
 }
