@@ -61,7 +61,7 @@ public class EnemyPathfinding : MonoBehaviour
     {
         if (scramming == false)
         {
-            wanderPos = new Vector3(Random.Range(-10f, 10f), gameObject.transform.position.y, Random.Range(-10f, 10f));
+            wanderPos = new Vector3(Random.Range(-8f, 9f), gameObject.transform.position.y, Random.Range(-6f, 5f));
 
             navMeshAgent.SetDestination(wanderPos);
 

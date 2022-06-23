@@ -10,6 +10,8 @@ public class Revolver : MonoBehaviour
     public bool drawn = false;
     public Animator anim;
 
+    public AudioSource gunshot;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +29,7 @@ public class Revolver : MonoBehaviour
         {
             anim.Play("Recoil", 0, 0f);
             //anim.Play("Base Layer.Bounce", 0, 0.25f)
+            gunshot.Play();
             Instantiate(bullet, gunTip.position, Quaternion.identity);
             bulletCount--;
         }
