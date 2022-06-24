@@ -12,12 +12,6 @@ public class Revolver : MonoBehaviour
 
     public AudioSource gunshot;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -31,7 +25,7 @@ public class Revolver : MonoBehaviour
             //anim.Play("Base Layer.Bounce", 0, 0.25f)
             gunshot.Play();
             Instantiate(bullet, gunTip.position, Quaternion.identity);
-            bulletCount--;
+            //bulletCount--;
         }
 
         // draw gun
