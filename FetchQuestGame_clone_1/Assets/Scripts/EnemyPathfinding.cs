@@ -13,12 +13,12 @@ public class EnemyPathfinding : MonoBehaviour
     Vector3 wanderPos;
     Transform escapeLoc;
 
-    Revolver revolverScript;
+    //Revolver revolverScript;
     // Start is called before the first frame update
     void Start()
     {
         // ref gun script to detect when gun is drawn
-        revolverScript = GameObject.FindGameObjectWithTag("Revolver").GetComponent<Revolver>();
+        //revolverScript = GameObject.FindGameObjectWithTag("Revolver").GetComponent<Revolver>();
         
         navMeshAgent = gameObject.GetComponent<NavMeshAgent>(); // get navAgent component
         wandering = true;
@@ -40,7 +40,7 @@ public class EnemyPathfinding : MonoBehaviour
         // calculate dist bw ai and targetLoc
         dist = Vector3.Distance(transform.position, wanderPos);
 
-        scramming = revolverScript.drawn;
+        //scramming = revolverScript.drawn;
 
         // if gun is drawn, ai's begin scramming
         if (scramming && hasScrammedOnce == false)
