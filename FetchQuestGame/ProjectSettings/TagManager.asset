@@ -8,6 +8,10 @@ TagManager:
   - GrapplingHook
   - Wall
   - Ground
+  - Enemy
+  - Revolver
+  - Bullet
+  - WantedSystem
   layers:
   - Default
   - TransparentFX
