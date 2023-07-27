@@ -8,7 +8,7 @@ public class Revolver : MonoBehaviour
     public Transform gunTip;
     public GameObject bullet;
     public int bulletCount = 6;
-    public bool drawn = false;
+    public bool drawn = true;
     public Animator animator;
 
     public AudioSource gunshot;
@@ -16,6 +16,7 @@ public class Revolver : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        drawn = true;
         camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
     }
 
@@ -26,7 +27,7 @@ public class Revolver : MonoBehaviour
         transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, camera.transform.rotation, 5f * Time.deltaTime);
 
         // shoot gun
-        if (Input.GetButtonDown("Shoot") && bulletCount > 0)
+        if (Input.GetButtonDown("Shoot") && bulletCount > 0 && drawn)
         {
             animator.Play("Recoil", 0, 0f);
             //anim.Play("Base Layer.Bounce", 0, 0.25f)
@@ -35,7 +36,7 @@ public class Revolver : MonoBehaviour
             bulletCount--;
         }
 
-        if (Input.GetButtonDown("Reload"))
+        if (Input.GetButtonDown("Reload") && drawn)
         {
             animator.Play("Reload", 0, 0f);
             bulletCount = 6;
@@ -44,8 +45,12 @@ public class Revolver : MonoBehaviour
         // draw gun
         if (Input.GetButtonDown("Draw"))
         {
-            drawn = true;
-            animator.Play("DrawGun");
+            if (!drawn)
+                animator.Play("DrawGun");
+            else if (drawn)
+                animator.Play("LowerGun");
+            
+            drawn = !drawn;
         }
     }
 }

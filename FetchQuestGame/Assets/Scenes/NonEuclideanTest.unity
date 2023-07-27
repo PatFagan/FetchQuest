@@ -573,6 +573,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunTip: {fileID: 4215583157842139342}
   bullet: {fileID: 3529342636003749121, guid: a29b48b562d89444fac1c1c44d319e65, type: 3}
+  bulletCount: 6
   drawn: 0
   animator: {fileID: 4215583158551981389}
   gunshot: {fileID: 1692086948}
