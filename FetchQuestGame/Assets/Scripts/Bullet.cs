@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        wantedSystem = GameObject.FindGameObjectWithTag("WantedSystem").GetComponent<WantedSystem>();
+        //wantedSystem = GameObject.FindGameObjectWithTag("WantedSystem").GetComponent<WantedSystem>();
         rigidbody = gameObject.GetComponent<Rigidbody>();
         camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
         rigidbody.AddForce(camera.transform.forward * projectileSpeed);

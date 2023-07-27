@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Revolver : MonoBehaviour
 {
-    public Transform camera, gunTip;
+    Transform camera;
+    public Transform gunTip;
     public GameObject bullet;
     int bulletCount = 6;
     public bool drawn = false;
@@ -15,7 +16,7 @@ public class Revolver : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
     }
 
     // Update is called once per frame

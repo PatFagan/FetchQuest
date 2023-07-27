@@ -2,7 +2,12 @@ using UnityEngine;
 
 public class StickToPlayer : MonoBehaviour
 {
-    public Transform player;
+    Transform player;
+
+    void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+    }
 
     void Update()
     {

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Transform camera;
+    Transform camera;
     Transform orientation;
     private Rigidbody rigidbody;
 
@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Awake()
     {
+        camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
         rigidbody = GetComponent<Rigidbody>();
         orientation = gameObject.GetComponent<Transform>();
     }
