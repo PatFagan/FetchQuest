@@ -7,7 +7,7 @@ public class Revolver : MonoBehaviour
     Transform camera;
     public Transform gunTip;
     public GameObject bullet;
-    int bulletCount = 6;
+    public int bulletCount = 6;
     public bool drawn = false;
     public Animator animator;
 
@@ -33,6 +33,12 @@ public class Revolver : MonoBehaviour
             gunshot.Play();
             Instantiate(bullet, gunTip.position, Quaternion.identity);
             bulletCount--;
+        }
+
+        if (Input.GetButtonDown("Reload"))
+        {
+            animator.Play("Reload", 0, 0f);
+            bulletCount = 6;
         }
 
         // draw gun
