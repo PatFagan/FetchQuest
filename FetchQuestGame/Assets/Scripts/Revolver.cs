@@ -9,7 +9,7 @@ public class Revolver : MonoBehaviour
     public GameObject bullet;
     int bulletCount = 6;
     public bool drawn = false;
-    public Animator anim;
+    public Animator animator;
 
     public AudioSource gunshot;
 
@@ -26,9 +26,9 @@ public class Revolver : MonoBehaviour
         transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, camera.transform.rotation, 5f * Time.deltaTime);
 
         // shoot gun
-        if (Input.GetButtonDown("Shoot") && bulletCount > 0 && drawn == true)
+        if (Input.GetButtonDown("Shoot") && bulletCount > 0)
         {
-            anim.Play("Recoil", 0, 0f);
+            animator.Play("Recoil", 0, 0f);
             //anim.Play("Base Layer.Bounce", 0, 0.25f)
             gunshot.Play();
             Instantiate(bullet, gunTip.position, Quaternion.identity);
@@ -39,7 +39,7 @@ public class Revolver : MonoBehaviour
         if (Input.GetButtonDown("Draw"))
         {
             drawn = true;
-            anim.Play("DrawGun");
+            animator.Play("DrawGun");
         }
     }
 }
