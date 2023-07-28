@@ -16,9 +16,13 @@ public class Bullet : MonoBehaviour
         //wantedSystem = GameObject.FindGameObjectWithTag("WantedSystem").GetComponent<WantedSystem>();
         rigidbody = gameObject.GetComponent<Rigidbody>();
         camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
-        rigidbody.AddForce(camera.transform.forward * projectileSpeed);
-        transform.Rotate(camera.transform.forward);// * new Vector2(90f, 0f));
-        Destroy(gameObject, 20f);
+        transform.rotation = camera.transform.rotation;
+        Destroy(gameObject, 3f);
+    }
+
+    void Update()
+    {
+        rigidbody.velocity = transform.forward * projectileSpeed;
     }
 
     void OnTriggerEnter(Collider collider)
