@@ -7,9 +7,9 @@ public class EnemyPathfinding : MonoBehaviour
 {
     // variables
     NavMeshAgent navMeshAgent;
-    bool wandering, scramming, hasScrammedOnce;
+    bool wandering, attacking, hasScrammedOnce;
     float dist;
-    public float wanderSpeed, scramSpeed, timeBetweenMoves;
+    public float wanderSpeed, attackSpeed, timeBetweenMoves;
     Vector3 wanderPos;
     Transform escapeLoc;
 
@@ -25,7 +25,7 @@ public class EnemyPathfinding : MonoBehaviour
 
         hasScrammedOnce = false;
 
-        escapeLoc = GameObject.Find("EscapeLoc").GetComponent<Transform>();
+        //escapeLoc = GameObject.Find("EscapeLoc").GetComponent<Transform>();
 
         // start wandering
         if (wandering)
@@ -40,26 +40,20 @@ public class EnemyPathfinding : MonoBehaviour
         // calculate dist bw ai and targetLoc
         dist = Vector3.Distance(transform.position, wanderPos);
 
-        scramming = revolverScript.drawn;
+        attacking = revolverScript.drawn;
 
-        // if gun is drawn, ai's begin scramming
-        if (scramming && hasScrammedOnce == false)
+        // if gun is drawn, ai's begin attacking
+        if (attacking && hasScrammedOnce == false)
         {
-            StartCoroutine(Scram());
+            StartCoroutine(Attack());
             hasScrammedOnce = true;
-        }
-
-        // enemy escapes at escape point
-        if (wanderPos == escapeLoc.position && dist <= 2f)
-        {
-            Destroy(gameObject);
         }
     }
 
     // selects a random pos and pathfinds there
     IEnumerator Wander()
     {
-        if (scramming == false)
+        if (attacking == false)
         {
             wanderPos = new Vector3(Random.Range(-8f, 9f), gameObject.transform.position.y, Random.Range(-6f, 5f));
 
@@ -79,14 +73,15 @@ public class EnemyPathfinding : MonoBehaviour
     }
 
     // increases wander speed
-    IEnumerator Scram()
+    IEnumerator Attack()
     {
         yield return new WaitForSeconds(.25f);
         timeBetweenMoves = .5f;
-        navMeshAgent.speed = scramSpeed;
+        navMeshAgent.speed = attackSpeed;
 
-        yield return new WaitForSeconds(2f);
-        wanderPos = escapeLoc.position; 
+        wanderPos = GameObject.FindGameObjectWithTag("Player").transform.position;
         navMeshAgent.SetDestination(wanderPos);
+
+        StartCoroutine(Attack());
     }
 }
