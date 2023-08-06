@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public int enemyId;
     public int health;
+
+    Rigidbody rigidbody;
 
     // Start is called before the first frame update
     void Start()
     {
-        //enemyId = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        rigidbody = gameObject.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -23,8 +24,10 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bullet")
         {
-            health--;
+            //health--;
             print("hit");
+
+            rigidbody.AddForce(collision.gameObject.GetComponent<Rigidbody>().velocity);
 
             if (health <= 0)
             {

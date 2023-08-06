@@ -35,6 +35,7 @@ public class Bullet : MonoBehaviour
         // if collides with wall
         if (collider.gameObject.tag == "Enemy")
         {
+            /*
             // check if enemy is the target
             if (collider.gameObject.transform.parent.gameObject.GetComponent<Enemy>().enemyId == wantedSystem.currentTarget)
             {
@@ -47,6 +48,7 @@ public class Bullet : MonoBehaviour
             {
                 wantedSystem.casualties++;
             }
+            */
 
             // kill enemy
             Destroy(collider.gameObject);
