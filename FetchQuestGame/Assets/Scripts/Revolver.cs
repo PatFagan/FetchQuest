@@ -9,6 +9,7 @@ public class Revolver : MonoBehaviour
     public GameObject bullet;
     public int bulletCount = 6;
     public bool drawn = true;
+    bool reloading = false;
     public Animator animator;
 
     public AudioSource gunshot;
@@ -27,7 +28,7 @@ public class Revolver : MonoBehaviour
         transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, camera.transform.rotation, 5f * Time.deltaTime);
 
         // shoot gun
-        if (Input.GetButtonDown("Shoot") && bulletCount > 0 && drawn)
+        if (Input.GetButtonDown("Shoot") && bulletCount > 0 && drawn && !reloading)
         {
             animator.Play("Recoil", 0, 0f);
             //anim.Play("Base Layer.Bounce", 0, 0.25f)
@@ -36,10 +37,10 @@ public class Revolver : MonoBehaviour
             bulletCount--;
         }
 
-        if (Input.GetButtonDown("Reload") && drawn)
+        if (Input.GetButtonDown("Reload") && drawn && !reloading)
         {
             animator.Play("Reload", 0, 0f);
-            bulletCount = 6;
+            StartCoroutine(Reload());
         }
 
         // draw gun
@@ -52,5 +53,13 @@ public class Revolver : MonoBehaviour
             
             drawn = !drawn;
         }
+    }
+
+    IEnumerator Reload()
+    {
+        reloading = true;
+        yield return new WaitForSeconds(.6f);
+        bulletCount = 6;
+        reloading = false;
     }
 }

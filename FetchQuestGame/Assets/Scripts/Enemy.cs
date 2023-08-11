@@ -24,8 +24,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bullet")
         {
-            //health--;
-            print("hit");
+            health--;
 
             rigidbody.AddForce(collision.gameObject.GetComponent<Rigidbody>().velocity);
 
