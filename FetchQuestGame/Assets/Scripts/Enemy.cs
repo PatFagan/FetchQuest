@@ -28,6 +28,9 @@ public class Enemy : MonoBehaviour
 
             rigidbody.AddForce(collision.gameObject.GetComponent<Rigidbody>().velocity);
 
+            // if armor piercing rounds is false
+            Destroy(collision.gameObject);
+
             if (health <= 0)
             {
                 Destroy(gameObject);
