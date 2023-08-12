@@ -8,12 +8,6 @@ public class StartButton : MonoBehaviour
 {
     public GameObject startButton;
     public GameObject[] enemies;
-    public WantedSystem wantedSystem;
-
-    void Start()
-    {
-        wantedSystem = GameObject.FindGameObjectWithTag("WantedSystem").GetComponent<WantedSystem>();
-    }
 
     void Update()
     {
@@ -23,15 +17,6 @@ public class StartButton : MonoBehaviour
 
     public void StartGame()
     {
-        // spawn enemies, assign their id's
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            enemies[i].SetActive(true);
-        }
-
-        // set target
-        wantedSystem.SetTarget();
-
         // hide start button
         gameObject.SetActive(false);
     }
