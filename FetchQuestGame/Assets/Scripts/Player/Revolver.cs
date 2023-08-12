@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Revolver : MonoBehaviour
+public class Revolver : NetworkBehaviour
 {
-    Transform camera;
+    public Transform camera;
     public Transform gunTip;
     public GameObject bullet;
     public int bulletCount = 6;
     public bool drawn = true;
     bool reloading = false;
     public Animator animator;
+    public GameObject parentPlayer;
 
     public AudioSource gunshot;
 
@@ -18,15 +20,33 @@ public class Revolver : MonoBehaviour
     void Start()
     {
         drawn = true;
-        camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // gun faces camera
-        transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, camera.transform.rotation, 5f * Time.deltaTime);
+        if (parentPlayer)
+        {
+            // stick to parent player
+            transform.position = parentPlayer.transform.position;
+            
+            // find camera
+            camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
+            //camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
 
+            // gun faces camera
+            transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, 
+                camera.transform.rotation, 5f * Time.deltaTime);
+
+            if (parentPlayer.GetComponent<NetworkIdentity>().isLocalPlayer)
+            {
+                GunInputs();
+            }
+        }
+    }
+
+    void GunInputs()
+    {
         // shoot gun
         if (Input.GetButtonDown("Shoot") && bulletCount > 0 && drawn && !reloading)
         {
@@ -37,6 +57,7 @@ public class Revolver : MonoBehaviour
             bulletCount--;
         }
 
+        // reload gun
         if (Input.GetButtonDown("Reload") && drawn && !reloading)
         {
             animator.Play("Reload", 0, 0f);

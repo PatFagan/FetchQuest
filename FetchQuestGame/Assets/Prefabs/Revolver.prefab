@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2149621050431777591}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.008726558, w: 0.999962}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -35,7 +35,7 @@ Transform:
   - {fileID: 2149621051204113071}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1}
 --- !u!114 &2149621050431777589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,11 +48,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5690c85637df90f40a0872b956fa0315, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  camera: {fileID: 0}
   gunTip: {fileID: 2149621050762716968}
   bullet: {fileID: 3529342636003749121, guid: a29b48b562d89444fac1c1c44d319e65, type: 3}
   bulletCount: 6
   drawn: 0
   animator: {fileID: 2149621051204113067}
+  parentPlayer: {fileID: 0}
   gunshot: {fileID: 2833958753810648386}
 --- !u!82 &2833958753810648386
 AudioSource:
@@ -157,11 +162,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2149621050431777591}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49c6ad37a7ef3e04dbe15eed9a8621d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentPlayer: {fileID: 0}
 --- !u!114 &7082400006092805309
 MonoBehaviour:
   m_ObjectHideFlags: 0

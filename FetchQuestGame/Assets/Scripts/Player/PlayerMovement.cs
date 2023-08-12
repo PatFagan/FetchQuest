@@ -27,21 +27,26 @@ public class PlayerMovement : NetworkBehaviour
         rigidbody = GetComponent<Rigidbody>();
         orientation = gameObject.GetComponent<Transform>();
 
+        // remove lobby camera
+        if (GameObject.FindGameObjectWithTag("MainCamera"))
+        {   
+            GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
+            //Destroy(GameObject.FindGameObjectWithTag("MainCamera"));
+        }
+
+        // create player camera
+        cameraPrefab.GetComponent<StickToPlayer>().parentPlayer = gameObject.transform;
+        Instantiate(cameraPrefab); 
+        camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
+
+        // spawn gun
+        revolver.GetComponent<Revolver>().parentPlayer = gameObject;
+        revolver.GetComponent<Revolver>().camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
         Instantiate(revolver);
 
-        if (isLocalPlayer)
-        {
-            if (GameObject.FindGameObjectWithTag("MainCamera"))
-            {
-                GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
-            }
-
-            Instantiate(cameraPrefab); 
-            camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
-
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
+        // camera cursor settings
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void FixedUpdate()
@@ -88,15 +93,15 @@ public class PlayerMovement : NetworkBehaviour
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.fixedDeltaTime;
 
         // Find current look rotation
-        //Vector3 rot = camera.transform.localRotation.eulerAngles;
-        //desiredX = rot.y + mouseX;
+        Vector3 rot = camera.transform.localRotation.eulerAngles;
+        desiredX = rot.y + mouseX;
 
         // Rotate, and also make sure we dont over- or under-rotate.
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         // Perform the rotations
-        //camera.transform.localRotation = Quaternion.Euler(xRotation, desiredX, 0);
+        camera.transform.localRotation = Quaternion.Euler(xRotation, desiredX, 0);
         orientation.transform.localRotation = Quaternion.Euler(0, desiredX, 0);
     }
 }

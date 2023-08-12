@@ -1,14 +1,14 @@
 using UnityEngine;
-using Mirror;
 
-public class StickToPlayer : NetworkBehaviour
+public class StickToPlayer : MonoBehaviour
 {
-    Transform player;
+    public Transform parentPlayer;
 
     void Start()
     {
         //player = GameObject.FindGameObjectsWithTag("Player").GetComponent<Transform>();
 
+        /*
         for (int i = 0; i < GameObject.FindGameObjectsWithTag("Player").Length; i++)
         {
             GameObject tempPlayer;
@@ -19,10 +19,11 @@ public class StickToPlayer : NetworkBehaviour
                 print("set player stick");
             }
         }
+        */
     }
 
     void Update()
     {
-        transform.position = player.transform.position;
+        transform.position = parentPlayer.transform.position;
     }
 }
