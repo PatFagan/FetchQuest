@@ -2,8 +2,9 @@ using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     Transform camera;
     Transform orientation;
@@ -21,31 +22,46 @@ public class PlayerMovement : MonoBehaviour
     float horizontal, vertical;
     Vector3 movement;
 
-    void Awake()
-    {
-        rigidbody = GetComponent<Rigidbody>();
-        orientation = gameObject.GetComponent<Transform>();
-        Instantiate(revolver);
-        Instantiate(cameraPrefab);
-        print("cam");
-        camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
-    }
-
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        if (isLocalPlayer)
+        {
+
+            rigidbody = GetComponent<Rigidbody>();
+            orientation = gameObject.GetComponent<Transform>();
+
+            /*
+            Instantiate(revolver);
+
+            if (GameObject.FindGameObjectWithTag("MainCamera"))
+            {
+                GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
+            }
+
+            Instantiate(cameraPrefab); 
+            camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            */
+        }
     }
 
     private void FixedUpdate()
     {
-        Movement();
+        if (isLocalPlayer)
+        {
+            Movement();
+        }
     }
 
     private void Update()
     {
-        MyInput();
-        Look();
+        if (isLocalPlayer)
+        {
+            MyInput();
+            Look();
+        }
     }
 
     // set axis input values
@@ -75,15 +91,15 @@ public class PlayerMovement : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.fixedDeltaTime;
 
         // Find current look rotation
-        Vector3 rot = camera.transform.localRotation.eulerAngles;
-        desiredX = rot.y + mouseX;
+        //Vector3 rot = camera.transform.localRotation.eulerAngles;
+        //desiredX = rot.y + mouseX;
 
         // Rotate, and also make sure we dont over- or under-rotate.
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         // Perform the rotations
-        camera.transform.localRotation = Quaternion.Euler(xRotation, desiredX, 0);
+        //camera.transform.localRotation = Quaternion.Euler(xRotation, desiredX, 0);
         orientation.transform.localRotation = Quaternion.Euler(0, desiredX, 0);
     }
 }
