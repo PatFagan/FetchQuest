@@ -24,15 +24,13 @@ public class PlayerMovement : NetworkBehaviour
 
     void Start()
     {
+        rigidbody = GetComponent<Rigidbody>();
+        orientation = gameObject.GetComponent<Transform>();
+
+        Instantiate(revolver);
+
         if (isLocalPlayer)
         {
-
-            rigidbody = GetComponent<Rigidbody>();
-            orientation = gameObject.GetComponent<Transform>();
-
-            /*
-            Instantiate(revolver);
-
             if (GameObject.FindGameObjectWithTag("MainCamera"))
             {
                 GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
@@ -43,7 +41,6 @@ public class PlayerMovement : NetworkBehaviour
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            */
         }
     }
 
