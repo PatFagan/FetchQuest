@@ -27,21 +27,25 @@ public class PlayerMovement : NetworkBehaviour
         rigidbody = GetComponent<Rigidbody>();
         orientation = gameObject.GetComponent<Transform>();
 
-        // remove lobby camera
-        if (GameObject.FindGameObjectWithTag("MainCamera"))
-        {   
-            GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
-            //Destroy(GameObject.FindGameObjectWithTag("MainCamera"));
-        }
+        if (isLocalPlayer)
+        {
+            // remove lobby camera
+            if (GameObject.FindGameObjectWithTag("MainCamera"))
+            {   
+                GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
+                //Destroy(GameObject.FindGameObjectWithTag("MainCamera"));
+            }
 
-        // create player camera
-        cameraPrefab.GetComponent<StickToPlayer>().parentPlayer = gameObject.transform;
-        Instantiate(cameraPrefab); 
-        camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
+            // create player camera
+            cameraPrefab.GetComponent<StickToPlayer>().parentPlayer = gameObject.transform;
+            cameraPrefab.name = "Camera" + GameObject.FindGameObjectsWithTag("Player").Length;
+            Instantiate(cameraPrefab); 
+            camera = GameObject.Find(cameraPrefab.name+"(Clone)").GetComponent<Transform>();
+        }
 
         // spawn gun
         revolver.GetComponent<Revolver>().parentPlayer = gameObject;
-        revolver.GetComponent<Revolver>().camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        revolver.GetComponent<Revolver>().camera = camera;
         Instantiate(revolver);
 
         // camera cursor settings
