@@ -9,6 +9,7 @@ public class PlayerMovement : NetworkBehaviour
     Transform camera;
     Transform orientation;
     private Rigidbody rigidbody;
+    public Quaternion cameraRotation;
 
     public GameObject revolver;
     public GameObject cameraPrefab;
@@ -44,8 +45,7 @@ public class PlayerMovement : NetworkBehaviour
         }
 
         // spawn gun
-        revolver.GetComponent<Revolver>().parentPlayer = gameObject;
-        revolver.GetComponent<Revolver>().camera = camera;
+        revolver.GetComponent<Revolver>().parentPlayer = gameObject; // set parent player
         Instantiate(revolver);
 
         // camera cursor settings
@@ -107,5 +107,7 @@ public class PlayerMovement : NetworkBehaviour
         // Perform the rotations
         camera.transform.localRotation = Quaternion.Euler(xRotation, desiredX, 0);
         orientation.transform.localRotation = Quaternion.Euler(0, desiredX, 0);
+
+        cameraRotation = camera.transform.localRotation;
     }
 }

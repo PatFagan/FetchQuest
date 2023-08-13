@@ -223,7 +223,7 @@ MonoBehaviour:
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 1
-  showOverlay: 1
+  showOverlay: 0
   overlayColor: {r: 0, g: 0.2720232, b: 1, a: 0.5}
   onlySyncOnChange: 1
   bufferResetMultiplier: 3

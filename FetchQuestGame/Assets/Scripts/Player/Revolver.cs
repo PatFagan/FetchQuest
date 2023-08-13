@@ -5,7 +5,6 @@ using Mirror;
 
 public class Revolver : NetworkBehaviour
 {
-    public Transform camera;
     public Transform gunTip;
     public GameObject bullet;
     public int bulletCount = 6;
@@ -25,23 +24,18 @@ public class Revolver : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        // stick to parent player
+        transform.position = parentPlayer.transform.position;
+        
+        // get aim direction from player
+        Quaternion aimDirection = parentPlayer.GetComponent<PlayerMovement>().cameraRotation;
+        // gun faces camera
+        transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, 
+            aimDirection, 5f * Time.deltaTime);
+
         if (parentPlayer.GetComponent<NetworkIdentity>().isLocalPlayer)
         {
-            // stick to parent player
-            transform.position = parentPlayer.transform.position;
-            
-            // find camera
-            camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
-            //camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
-
-            // gun faces camera
-            transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, 
-                camera.transform.rotation, 5f * Time.deltaTime);
-
-            if (parentPlayer.GetComponent<NetworkIdentity>().isLocalPlayer)
-            {
-                GunInputs();
-            }
+            GunInputs();
         }
     }
 
