@@ -37,6 +37,16 @@ public class Revolver : NetworkBehaviour
         {
             GunInputs();
         }
+
+        ///*
+        // temp fix. mimick gun rotation w player rotation
+        if (!parentPlayer.GetComponent<NetworkIdentity>().isLocalPlayer)
+        {
+            // gun faces camera
+            transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, 
+                parentPlayer.transform.rotation, 5f * Time.deltaTime);
+        }
+        //*/
     }
 
     void GunInputs()

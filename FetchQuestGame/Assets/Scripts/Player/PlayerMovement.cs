@@ -27,21 +27,15 @@ public class PlayerMovement : NetworkBehaviour
     {
         rigidbody = GetComponent<Rigidbody>();
         orientation = gameObject.GetComponent<Transform>();
-
-        if (isLocalPlayer)
+        
+        // create player camera
+        cameraPrefab.GetComponent<StickToPlayer>().parentPlayer = gameObject.transform;
+        cameraPrefab.name = "Camera" + GameObject.FindGameObjectsWithTag("Player").Length;
+        Instantiate(cameraPrefab); 
+        camera = GameObject.Find(cameraPrefab.name+"(Clone)").GetComponent<Transform>();
+        if (!isLocalPlayer)
         {
-            // remove lobby camera
-            if (GameObject.FindGameObjectWithTag("MainCamera"))
-            {   
-                GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
-                //Destroy(GameObject.FindGameObjectWithTag("MainCamera"));
-            }
-
-            // create player camera
-            cameraPrefab.GetComponent<StickToPlayer>().parentPlayer = gameObject.transform;
-            cameraPrefab.name = "Camera" + GameObject.FindGameObjectsWithTag("Player").Length;
-            Instantiate(cameraPrefab); 
-            camera = GameObject.Find(cameraPrefab.name+"(Clone)").GetComponent<Transform>();
+            camera.gameObject.SetActive(false); // disable cam if not used by local player
         }
 
         // spawn gun
@@ -107,7 +101,7 @@ public class PlayerMovement : NetworkBehaviour
         // Perform the rotations
         camera.transform.localRotation = Quaternion.Euler(xRotation, desiredX, 0);
         orientation.transform.localRotation = Quaternion.Euler(0, desiredX, 0);
-
+        
         cameraRotation = camera.transform.localRotation;
     }
 }
