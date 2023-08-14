@@ -16,6 +16,6 @@ public class RayLink : MonoBehaviour
             line.SetPosition(0, transform.position);
             line.SetPosition(1, player.transform.position);
         }
-        //Debug.DrawRay(transform.position, player.transform.position, Color.red, 10.0f);
+        Debug.DrawRay(transform.position, player.transform.position, Color.red, 10.0f);
     }
 }
