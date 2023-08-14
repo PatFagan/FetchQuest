@@ -18,14 +18,14 @@ public class EnemyPathfinding : MonoBehaviour
     void Start()
     {
         // ref gun script to detect when gun is drawn
-        revolverScript = GameObject.FindGameObjectWithTag("Revolver").GetComponent<Revolver>();
+        //revolverScript = GameObject.FindGameObjectWithTag("Revolver").GetComponent<Revolver>();
         
         navMeshAgent = gameObject.GetComponent<NavMeshAgent>(); // get navAgent component
         wandering = true;
 
         hasScrammedOnce = false;
 
-        //escapeLoc = GameObject.Find("EscapeLoc").GetComponent<Transform>();
+        attackSpeed = attackSpeed + Random.Range(-.5f, .5f);
 
         // start wandering
         if (wandering)
@@ -40,7 +40,8 @@ public class EnemyPathfinding : MonoBehaviour
         // calculate dist bw ai and targetLoc
         dist = Vector3.Distance(transform.position, wanderPos);
 
-        attacking = revolverScript.drawn;
+        //attacking = revolverScript.drawn;
+        attacking = true;
 
         // if gun is drawn, ai's begin attacking
         if (attacking && hasScrammedOnce == false)
