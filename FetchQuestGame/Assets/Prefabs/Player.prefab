@@ -158,7 +158,7 @@ MonoBehaviour:
   revolver: {fileID: 2149621050431777591, guid: 1f137048aabf37f409b7f75e49adc863, type: 3}
   cameraPrefab: {fileID: 5892867546055963708, guid: 6e53507f14b37ca44962dadf75583075, type: 3}
   sensitivity: 500
-  moveSpeed: 600
+  moveSpeed: 500
 --- !u!114 &8554890767772965341
 MonoBehaviour:
   m_ObjectHideFlags: 0

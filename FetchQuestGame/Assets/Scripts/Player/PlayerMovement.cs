@@ -22,11 +22,14 @@ public class PlayerMovement : NetworkBehaviour
     public float moveSpeed = 4500;
     float horizontal, vertical;
     Vector3 movement;
+    float distToGround;
 
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
         orientation = gameObject.GetComponent<Transform>();
+        
+        distToGround = GetComponent<Collider>().bounds.extents.y;
         
         // create player camera
         cameraPrefab.GetComponent<StickToPlayer>().parentPlayer = gameObject.transform;
@@ -61,6 +64,7 @@ public class PlayerMovement : NetworkBehaviour
         {
             MyInput();
             Look();
+            Jump();
         }
     }
 
@@ -81,6 +85,16 @@ public class PlayerMovement : NetworkBehaviour
         //rigidbody.velocity = new Vector3(orientation.transform.forward.x * movement.x * moveSpeed, 0f, orientation.transform.right.x * movement.z * moveSpeed);
         rigidbody.AddForce(orientation.transform.forward * vertical * moveSpeed);
         rigidbody.AddForce(orientation.transform.right * horizontal * moveSpeed);
+    }
+
+    private void Jump()
+    {
+        bool isGrounded = Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.75f);
+
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            rigidbody.AddForce(orientation.transform.up * moveSpeed * 30f);
+        }
     }
 
     // some camera direction nonsense

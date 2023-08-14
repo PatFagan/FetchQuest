@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
             health--;
 
             // knockback
-            rigidbody.AddForce(collision.gameObject.GetComponent<Rigidbody>().velocity / 2f);
+            rigidbody.AddForce(collision.gameObject.GetComponent<Rigidbody>().velocity);
 
             // flash
             StartCoroutine(Flash());
