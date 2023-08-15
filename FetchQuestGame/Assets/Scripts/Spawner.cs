@@ -18,27 +18,32 @@ public class Spawner : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(Spawning());
+        //StartCoroutine(Spawning());
+        //NetworkIdentity.AssignClientAuthority(conn);
+        //identity.AssignClientAuthority(conn);
     }
 
     IEnumerator Spawning()
     {
-        //CmdSpawn();
-        int index = Random.Range(0, spawnedObjects.Length);
-        Instantiate(spawnedObjects[index]);
+        CmdSpawn();
+        //int index = Random.Range(0, spawnedObjects.Length);
+        //Instantiate(spawnedObjects[index]);
         yield return new WaitForSeconds(spawnDelay);
-        StartCoroutine(Spawning());
+        //StartCoroutine(Spawning());
     }
 
-    [Command]
+    //[Command]
+    [Command(requiresAuthority = false)]
     void CmdSpawn()
     {
-        //int index = Random.Range(0, spawnedObjects.Length);
+        RpcSpawn();
+    }
 
+    [ClientRpc]
+    void RpcSpawn()
+    {
         GameObject enemy = Instantiate(spawnedObjects[0], transform.position, transform.rotation);
-        NetworkServer.Spawn(enemy);
-
-        //Instantiate(spawnedObjects[index]);
+        //NetworkServer.Spawn(enemy);
     }
 
     // Update is called once per frame

@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Enemy : MonoBehaviour
+public class Enemy : NetworkBehaviour
 {
     public int health;
 
@@ -39,9 +40,22 @@ public class Enemy : MonoBehaviour
             // check if dead
             if (health <= 0)
             {
-                Destroy(gameObject);
+                CmdDeath();
             }
         }
+    }
+
+    //[Command]
+    [Command(requiresAuthority = false)]
+    void CmdDeath()
+    {
+        RpcDeath();
+    }
+
+    [ClientRpc]
+    void RpcDeath()
+    {
+        Destroy(gameObject);
     }
 
     IEnumerator Flash()
