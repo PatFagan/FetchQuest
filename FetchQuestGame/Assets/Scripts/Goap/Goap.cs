@@ -5,12 +5,11 @@ using Mirror;
 
 public class Goap : NetworkBehaviour
 {
-    public List<GoapAction> GoapActions;
+    public List<GoapAction> GoapActions; // list of relevant goap actions
 
-    public GameObject goapActionKeeper;
-    
-    public float timeBetweenActions;
-    public bool pausedGoap; // resume bool when each action is complete
+    public GameObject goapActionKeeper; // linked object with all relevant goap action scripts
+
+    float timeBetweenActions = 2f;
 
     // set list of all actions, ordered by cost
     MeleeAttack meleeScript;
@@ -22,6 +21,8 @@ public class Goap : NetworkBehaviour
 
         rangedScript = goapActionKeeper.GetComponent<RangedAttack>();
         GoapActions[1] = rangedScript;
+
+        print("goap actions list set");
 
     }
 
@@ -35,11 +36,6 @@ public class Goap : NetworkBehaviour
         StartCoroutine(RunState());
     }
 
-    public void NextState()
-    {
-        StartCoroutine(RunState());
-    }
-
     IEnumerator RunState()
     {
         //if (!PhotonNetwork.isMasterClient)
@@ -49,17 +45,24 @@ public class Goap : NetworkBehaviour
         // run first action with all preconditions met
         for (int i = GoapActions.Count - 1; i >= 0; i--)
         {
+            // found action with preconditions met
             if (GoapActions[i].CheckPreconditions())
             {
-                RunAction(i);
+                print("found goap action to run");
+                //RunAction(i);
+                GoapActions[i].RunAction();
             }
         }
         
-        //yield return new WaitForSeconds(timeBetweenActions);
-        yield return new WaitUntil(() => pausedGoap == false);
+        // delay between actions
+        yield return new WaitForSeconds(timeBetweenActions);
+
+        // wait until action is complete to continue
+        //yield return new WaitUntil(() => GoapActions[i].pausedGoap == false);
         StartCoroutine(RunState());
     }
 
+    /*
     //[ClientRPC]
     float RunAction(int i)
     {
@@ -67,7 +70,7 @@ public class Goap : NetworkBehaviour
         //isActing = true;
         //Make sure the same action is run across all clients
         return 0;
-        
     }
+    */
 
 }

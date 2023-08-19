@@ -6,6 +6,7 @@ public class MeleeAttack : GoapAction
 {
     public Collider handCollider;
 
+    // action constructor, create necessary preconditions
     public MeleeAttack()
     {
         preconditions.Add("CloseToPlayer", false);
@@ -23,22 +24,20 @@ public class MeleeAttack : GoapAction
     {
         //if (PhotonNetwork.isMasterClient)
         {
-            if (running)
-            {
-                goapAgentScript.GetComponent<Animator>().SetTrigger("Melee");
-                StartCoroutine(EnableHandDamage());
-                StartCoroutine(endRunning());
-            }
+            // update preconditions based on goapagent values
             preconditions["CloseToPlayer"] = goapAgentScript.closeToPlayer;
         }
     }
 
     public override float RunAction()
     {
-        print("run action");
-        running = true;
-       
+        print("melee, cost: " + cost);
+
         SetTarget(currentTarget);
+        //goapAgentScript.GetComponent<Animator>().SetTrigger("Melee");
+        //StartCoroutine(EnableHandDamage());
+        //StartCoroutine(endRunning());
+       
         return runTimeInSeconds;
     }
 

@@ -10,8 +10,8 @@ public class RangedAttack : GoapAction
     public GameObject[] attack;
     public GameObject[] spawnPositions;
     public int maxAttackIndex = 1;
-    bool ending = false;
 
+    // action constructor, create necessary preconditions
     public RangedAttack()
     {
         preconditions.Add("FarFromPlayer", false);
@@ -41,13 +41,16 @@ public class RangedAttack : GoapAction
 
     public override float RunAction()
     {
-        //print("ranged, cost: " + cost);
+        print("ranged, cost: " + cost);
+        
+        SetTarget(currentTarget);
 
         // pick a random ranged attack
-        //GameObject tmp = PhotonNetwork.Instantiate("Weapons/BossAttacks/" + 
-            //attack[randomIndex].name, spawnPos.transform.position, Quaternion.identity, 0);
+        print(target.name);
+        attack[0].GetComponent<EnemyProjectile>().playerTarget = target;
+        Instantiate(attack[0], transform.position, Quaternion.identity);
 
-        SetTarget(currentTarget);
+
         return runTimeInSeconds;
     }
     

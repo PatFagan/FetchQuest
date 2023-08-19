@@ -5,20 +5,20 @@ using UnityEngine;
 [System.Serializable]
 public abstract class GoapAction : MonoBehaviour//, IPunObservable
 {
-    public string name;
+    //public string name;
     public int cost;
     public Dictionary<string, bool> preconditions = new Dictionary<string, bool>();
-    public string aiName = "Dummy";
 
-    public float speed;
-    GameObject target;
+    float speed;
+
+    public GameObject target;
     Transform followerTransform;
     public Vector3 targetPos;
     public Vector3 currentPos;
     GameObject follower;
-
     public int currentTarget = 1;
     public int targetSwap = 0;
+
     public float runTimeInSeconds = 1.0f;
     public bool running = false;
 
@@ -32,8 +32,9 @@ public abstract class GoapAction : MonoBehaviour//, IPunObservable
     {
         //if (PhotonNetwork.isMasterClient)
         {
-            string targetTag = "Player" + targetIndex;
-            target = GameObject.Find(targetTag);
+            string targetTag = "Player";
+            target = GameObject.FindGameObjectWithTag(targetTag);
+            print(target.name);
             follower = GameObject.FindGameObjectWithTag("Enemy");
 
             StartCoroutine(MoveToTarget());
@@ -51,7 +52,7 @@ public abstract class GoapAction : MonoBehaviour//, IPunObservable
 
             //targetSwap = 0;
             goapAgentScript.SetTargetIndex(currentTarget);
-            print("target swap to " + currentTarget);
+            //print("target swap to " + currentTarget);
         }
     }
 
@@ -75,7 +76,7 @@ public abstract class GoapAction : MonoBehaviour//, IPunObservable
         {
             //if (PhotonNetwork.isMasterClient)
             {
-                if (target && follower.GetComponent<Goap>().pausedGoap == false)
+                if (target)
                 {
                     targetPos = target.GetComponent<Transform>().position;
                     followerTransform = follower.GetComponent<Transform>();

@@ -5152,10 +5152,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2287062431245137515, guid: 4c2b0a6fc0fbf394b982d3af9c129345, type: 3}
-      propertyPath: GoapActions.Array.size
-      value: 2
+    - target: {fileID: 4920926340380040401, guid: 4c2b0a6fc0fbf394b982d3af9c129345, type: 3}
+      propertyPath: cost
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4920926340380040401, guid: 4c2b0a6fc0fbf394b982d3af9c129345, type: 3}
+      propertyPath: attack.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4920926340380040401, guid: 4c2b0a6fc0fbf394b982d3af9c129345, type: 3}
+      propertyPath: attack.Array.data[0]
+      value: 
+      objectReference: {fileID: 2077307352862359183, guid: bcfe331e76253174db3f4733154b72b9, type: 3}
     - target: {fileID: 7982001663560450122, guid: 4c2b0a6fc0fbf394b982d3af9c129345, type: 3}
       propertyPath: sceneId
       value: 1279719430

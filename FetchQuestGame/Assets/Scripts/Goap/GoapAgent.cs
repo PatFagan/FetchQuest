@@ -16,7 +16,6 @@ public class GoapAgent : MonoBehaviour
     public bool farFromPlayer;
     public bool closeToPlayer;
 
-    public float farFromPlayerDist;
     public float closeToPlayerDist;
 
     GameObject player;
@@ -34,24 +33,23 @@ public class GoapAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (gameObject.GetPhotonView().isMine)
+        // implement player aggro
+        player = GameObject.FindGameObjectWithTag("Player");
+        if (player)
+            distFromPlayer = Mathf.Sqrt(Mathf.Pow((player.transform.position.x - gameObject.transform.position.x), 2) + Mathf.Pow((player.transform.position.z - gameObject.transform.position.z), 2));
+
+        //print("dist: " + distFromPlayer);
+
+        // close check
+        if (distFromPlayer <= closeToPlayerDist)
         {
-            player = GameObject.FindGameObjectWithTag("Player");
-            if (player)
-                distFromPlayer = Mathf.Sqrt(Mathf.Pow((player.transform.position.x - gameObject.transform.position.x), 2) + Mathf.Pow((player.transform.position.z - gameObject.transform.position.z), 2));
-
-            //print("dist: " + distFromPlayer);
-
-            // far check
-            if (distFromPlayer > closeToPlayerDist && distFromPlayer < farFromPlayerDist)
-                farFromPlayer = true;
-            else
-                farFromPlayer = false;
-            // close check
-            if (distFromPlayer <= closeToPlayerDist)
-                closeToPlayer = true;
-            else
-                closeToPlayer = false;
+            farFromPlayer = false;
+            closeToPlayer = true;
+        }
+        else
+        {
+            farFromPlayer = true;
+            closeToPlayer = false;
         }
     }
 
