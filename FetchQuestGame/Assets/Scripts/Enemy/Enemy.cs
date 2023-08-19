@@ -26,6 +26,7 @@ public class Enemy : NetworkBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             // subtract health
+            //CmdHit();
             health--;
 
             // knockback
@@ -40,9 +41,23 @@ public class Enemy : NetworkBehaviour
             // check if dead
             if (health <= 0)
             {
-                CmdDeath();
+                Destroy(gameObject);
+                //CmdDeath();
             }
         }
+    }
+
+    [Command(requiresAuthority = false)]
+    void CmdHit()
+    {
+        RpcHit();
+    }
+
+    [ClientRpc]
+    void RpcHit()
+    {
+        print(health);
+        health--;
     }
 
     //[Command]

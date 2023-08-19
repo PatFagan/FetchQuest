@@ -15,7 +15,6 @@ public class GoapAgent : MonoBehaviour
     // bool
     public bool farFromPlayer;
     public bool closeToPlayer;
-    public bool superFarFromPlayer;
 
     public float farFromPlayerDist;
     public float closeToPlayerDist;
@@ -53,11 +52,6 @@ public class GoapAgent : MonoBehaviour
                 closeToPlayer = true;
             else
                 closeToPlayer = false;
-            // super far check
-            if (distFromPlayer >= farFromPlayerDist)
-                superFarFromPlayer = true;
-            else
-                superFarFromPlayer = false;
         }
     }
 

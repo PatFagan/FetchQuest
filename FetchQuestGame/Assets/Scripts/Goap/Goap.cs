@@ -1,47 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Goap : MonoBehaviour
+public class Goap : NetworkBehaviour
 {
     public List<GoapAction> GoapActions;
-    public List<GoapAction> initalGoapActions;
 
     public GameObject goapActionKeeper;
-    public bool runningGoap; // for debugging to easily disable goap
-
-    bool gnomeRunning = false;
     
     public float timeBetweenActions;
     public bool pausedGoap; // resume bool when each action is complete
 
+    // set list of all actions, ordered by cost
     MeleeAttack meleeScript;
     RangedAttack rangedScript;
     void setListOfGoapActions()
     {
-        int index = 0;
-
         meleeScript = goapActionKeeper.GetComponent<MeleeAttack>();
-        GoapActions[index] = meleeScript;
-        initalGoapActions[index] = meleeScript;
-        index++;
+        GoapActions[0] = meleeScript;
 
         rangedScript = goapActionKeeper.GetComponent<RangedAttack>();
-        GoapActions[index] = rangedScript;
-        initalGoapActions[index] = rangedScript;
-        index++;
+        GoapActions[1] = rangedScript;
 
     }
 
     void Start()
     {
-        // get all goap actions
+        // assign goap actions list
         setListOfGoapActions();
 
         // start goap cycle
-        //if(PhotonNetwork.isMasterClient)
-            if (runningGoap)
-                StartCoroutine(RunState());
+        // TO DO: make cmd
+        StartCoroutine(RunState());
     }
 
     public void NextState()
@@ -51,12 +42,8 @@ public class Goap : MonoBehaviour
 
     IEnumerator RunState()
     {
-        yield return new WaitForSeconds(timeBetweenActions);
-
         //if (!PhotonNetwork.isMasterClient)
-            yield return null;
-
-        //gnomeSort(GoapActions);
+            //yield return null;
 
         // run through goap actions
         // run first action with all preconditions met
@@ -64,67 +51,23 @@ public class Goap : MonoBehaviour
         {
             if (GoapActions[i].CheckPreconditions())
             {
-                //loops through the inital order of the actions
-                for (int j = 0; j < initalGoapActions.Count; ++j)
-                {
-                    //Checks what action should be run with inital order to send to all clients
-                    if (initalGoapActions[j] == GoapActions[i])
-                    {
-                        RunAction(j);//
-                        break;
-                    }
-                }
-                //GoapActions[i].RunAction();
-                //yield return new WaitUntil(() => gnomeRunning == false);
-                //GoapActions[i].cost += 1;
-                //GoapActions.RemoveAt(i);
-                break;
+                RunAction(i);
             }
         }
-
+        
+        //yield return new WaitForSeconds(timeBetweenActions);
         yield return new WaitUntil(() => pausedGoap == false);
         StartCoroutine(RunState());
     }
 
-    //[PunRPC]
+    //[ClientRPC]
     float RunAction(int i)
     {
-        initalGoapActions[i].RunAction();
+        GoapActions[i].RunAction();
         //isActing = true;
         //Make sure the same action is run across all clients
         return 0;
         
-    }
-
-    void gnomeSort(List<GoapAction> list)
-    {
-        gnomeRunning = true;
-
-        int i = 0;
-
-        while (i < list.Count)
-        {
-            if (i == 0)
-                i++;
-            if (list[i - 1].cost >= list[i].cost)
-                i++;
-            else
-            {
-                swapVar(list[i], list[i - 1]);
-                i--;
-            }
-        }
-
-        gnomeRunning = false;
-    }
-
-    // swaps two values
-    void swapVar(GoapAction a, GoapAction b)
-    {
-        GoapAction temp;
-        temp = a;
-        a = b;
-        b = temp;
     }
 
 }
