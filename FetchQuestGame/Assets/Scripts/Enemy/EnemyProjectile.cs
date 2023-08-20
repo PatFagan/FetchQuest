@@ -18,7 +18,7 @@ public class EnemyProjectile : MonoBehaviour
 
     void Update()
     {
-        rigidbody.velocity = transform.forward * projectileSpeed;
+        rigidbody.velocity = -transform.forward * projectileSpeed;
     }
 
     void OnTriggerEnter(Collider collider)

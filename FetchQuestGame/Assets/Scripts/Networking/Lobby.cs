@@ -60,8 +60,8 @@ public class Lobby : NetworkBehaviour
 
     public void StartLobbyAsHost()
     {
-        networkManager.StartHost();
         networkManager.networkAddress = lobbyNameInput.text;
+        networkManager.StartHost();
         print("host:" + networkManager.networkAddress);
         networkingInterface.SetActive(false);
         lobbyCam.SetActive(false);
@@ -69,8 +69,8 @@ public class Lobby : NetworkBehaviour
 
     public void StartLobbyAsClient()
     {
-        networkManager.StartClient();
         networkManager.networkAddress = lobbyNameInput.text;
+        networkManager.StartClient();
         print("client:" + networkManager.networkAddress);
         networkingInterface.SetActive(false);
         lobbyCam.SetActive(false);
