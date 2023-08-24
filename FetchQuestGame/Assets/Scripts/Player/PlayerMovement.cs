@@ -2,9 +2,8 @@ using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Mirror;
 
-public class PlayerMovement : NetworkBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     Transform camera;
     Transform orientation;
@@ -36,10 +35,6 @@ public class PlayerMovement : NetworkBehaviour
         cameraPrefab.name = "Camera" + GameObject.FindGameObjectsWithTag("Player").Length;
         Instantiate(cameraPrefab); 
         camera = GameObject.Find(cameraPrefab.name+"(Clone)").GetComponent<Transform>();
-        if (!isLocalPlayer)
-        {
-            camera.gameObject.SetActive(false); // disable cam if not used by local player
-        }
 
         // spawn gun
         revolver.GetComponent<Revolver>().parentPlayer = gameObject; // set parent player
@@ -52,20 +47,14 @@ public class PlayerMovement : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        if (isLocalPlayer)
-        {
-            Movement();
-        }
+        Movement();
     }
 
     private void Update()
     {
-        if (isLocalPlayer)
-        {
-            MyInput();
-            Look();
-            Jump();
-        }
+        MyInput();
+        Look();
+        Jump();
     }
 
     // set axis input values

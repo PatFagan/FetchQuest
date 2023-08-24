@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
 
-public class Revolver : NetworkBehaviour
+public class Revolver : MonoBehaviour
 {
     public Transform gunTip;
     public GameObject bullet;
@@ -33,20 +32,11 @@ public class Revolver : NetworkBehaviour
         transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, 
             aimDirection, 5f * Time.deltaTime);
 
-        if (parentPlayer.GetComponent<NetworkIdentity>().isLocalPlayer)
-        {
-            GunInputs();
-        }
+        GunInputs();
 
-        ///*
-        // temp fix. mimick gun rotation w player rotation
-        if (!parentPlayer.GetComponent<NetworkIdentity>().isLocalPlayer)
-        {
-            // gun faces camera
-            transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, 
-                parentPlayer.transform.rotation, 5f * Time.deltaTime);
-        }
-        //*/
+        // gun faces camera
+        transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, 
+            parentPlayer.transform.rotation, 5f * Time.deltaTime);
     }
 
     void GunInputs()

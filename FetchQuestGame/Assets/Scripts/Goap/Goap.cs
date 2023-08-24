@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
 
-public class Goap : NetworkBehaviour
+public class Goap : MonoBehaviour
 {
     public List<GoapAction> GoapActions; // list of relevant goap actions
 

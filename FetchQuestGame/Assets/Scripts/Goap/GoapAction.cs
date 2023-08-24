@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public abstract class GoapAction : MonoBehaviour//, IPunObservable
+public abstract class GoapAction : MonoBehaviour
 {
     //public string name;
     public int cost;
