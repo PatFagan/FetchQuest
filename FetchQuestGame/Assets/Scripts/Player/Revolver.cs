@@ -68,7 +68,7 @@ public class Revolver : NetworkBehaviour
             StartCoroutine(Reload());
         }
 
-        /*
+        ///*
         // draw gun
         if (Input.GetButtonDown("Draw"))
         {
@@ -79,7 +79,7 @@ public class Revolver : NetworkBehaviour
             
             drawn = !drawn;
         }
-        */
+        //*/
     }
 
     IEnumerator Reload()
