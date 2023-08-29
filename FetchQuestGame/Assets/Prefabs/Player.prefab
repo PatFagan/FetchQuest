@@ -53,9 +53,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e454d96d53d97054bb420c705f769667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
   cameraRotation: {x: 0, y: 0, z: 0, w: 0}
   revolver: {fileID: 2149621050431777591, guid: 1f137048aabf37f409b7f75e49adc863, type: 3}
   cameraPrefab: {fileID: 5892867546055963708, guid: 6e53507f14b37ca44962dadf75583075, type: 3}

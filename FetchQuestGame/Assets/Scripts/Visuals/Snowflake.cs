@@ -8,22 +8,27 @@ public class Snowflake : MonoBehaviour
 
     void Start()
     {
-        gameObject.GetComponent<Rigidbody>().velocity = spawnerSetVelocity;
+        //gameObject.GetComponent<Rigidbody>().velocity = spawnerSetVelocity;
+        //transform.Translate(spawnerSetVelocity);
     }
 
     // Update is called once per frame
     void Update()
     {
-        print(gameObject.GetComponent<Rigidbody>().velocity);
+        transform.Translate(spawnerSetVelocity);
 
-    }
-
-    void OnTriggerEnter(Collider collider)
-    {
-        // if player stands on platform, trigger sinking
-        if (collider.gameObject.tag == "Ground")
+        // add random velocity bursts
+        float randBurstChance = Random.Range(0f, 100f);
+        if (randBurstChance < .2f)
         {
-            gameObject.GetComponent<Rigidbody>().useGravity = false;
+            float randZ = Random.Range(-.05f, .05f);
+            float randY = Random.Range(-.2f, -.05f);
+            float randX = Random.Range(-.05f, .05f);
+
+            // if x and z are greater, decrease y
+            //randY = randY / Mathf.Abs(randX + randZ);
+
+            spawnerSetVelocity = new Vector3(randX, randY, randZ);
         }
     }
 }

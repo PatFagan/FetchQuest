@@ -21,12 +21,17 @@ public class Emitter : MonoBehaviour
     IEnumerator Snowing()
     {
         int index = Random.Range(0, snowflakes.Length);
-        float randZ = Random.Range(-20, 20);
-        float randX = Random.Range(-20, 20);
+        float randZ = Random.Range(-.5f, .5f);
+        float randY = Random.Range(-.2f, -.05f);
+        float randX = Random.Range(-.5f, .5f);
         GameObject nextSnowflake = snowflakes[index];
-        nextSnowflake.GetComponent<Snowflake>().spawnerSetVelocity = new Vector3(randX, 0f, randZ);
+        nextSnowflake.GetComponent<Snowflake>().spawnerSetVelocity = new Vector3(randX, randY, randZ);
 
-        Instantiate(nextSnowflake, transform.position, Quaternion.identity);
+        float randScale = Random.Range(.25f, 1f);
+        nextSnowflake.transform.localScale = new Vector3(1f, 1f, 1f);
+        nextSnowflake.transform.localScale *= randScale;
+
+        Instantiate(nextSnowflake, transform.position + new Vector3(randX*30f, 10f, randZ*30f), Quaternion.identity);
 
         yield return new WaitForSeconds(spawnDelay);
 
