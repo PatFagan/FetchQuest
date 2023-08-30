@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Mirror;
 
-public class Spawner : NetworkBehaviour
+public class Spawner : MonoBehaviour
 {
     public GameObject[] spawnedObjects;
     public float spawnDelay;
@@ -25,31 +24,11 @@ public class Spawner : NetworkBehaviour
 
     IEnumerator Spawning()
     {
-        CmdSpawn();
         //int index = Random.Range(0, spawnedObjects.Length);
         //Instantiate(spawnedObjects[index]);
-        yield return new WaitForSeconds(spawnDelay);
-        //StartCoroutine(Spawning());
-    }
-
-    //[Command]
-    [Command(requiresAuthority = false)]
-    void CmdSpawn()
-    {
-        RpcSpawn();
-    }
-
-    [ClientRpc]
-    void RpcSpawn()
-    {
         GameObject enemy = Instantiate(spawnedObjects[0], transform.position, transform.rotation);
-        //NetworkServer.Spawn(enemy);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        yield return new WaitForSeconds(spawnDelay);
+        StartCoroutine(Spawning());
     }
 
     void OnTriggerStay(Collider collider)

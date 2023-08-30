@@ -22,6 +22,9 @@ public class PlayerMovement : MonoBehaviour
     float horizontal, vertical;
     Vector3 movement;
     float distToGround;
+    bool sprintCharged = true;
+
+    public float jumpForce, sprintForce;
 
     void Start()
     {
@@ -55,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
         MyInput();
         Look();
         Jump();
+        Sprint();
     }
 
     // set axis input values
@@ -71,7 +75,6 @@ public class PlayerMovement : MonoBehaviour
         rigidbody.AddForce(Vector3.down * 500f);
 
         // apply forces to move player
-        //rigidbody.velocity = new Vector3(orientation.transform.forward.x * movement.x * moveSpeed, 0f, orientation.transform.right.x * movement.z * moveSpeed);
         rigidbody.AddForce(orientation.transform.forward * vertical * moveSpeed);
         rigidbody.AddForce(orientation.transform.right * horizontal * moveSpeed);
     }
@@ -82,8 +85,29 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            rigidbody.AddForce(orientation.transform.up * moveSpeed * 30f);
+            rigidbody.AddForce(orientation.transform.up * moveSpeed * jumpForce);
         }
+    }
+
+    private void Sprint()
+    {
+        if (Input.GetButtonDown("Sprint") && sprintCharged)
+        {
+            rigidbody.AddForce(orientation.transform.forward * vertical * sprintForce); 
+            rigidbody.AddForce(orientation.transform.right * horizontal * sprintForce); 
+            
+            print(orientation.transform.forward * vertical * sprintForce); 
+            print(orientation.transform.right * horizontal * sprintForce); 
+
+            StartCoroutine(SprintCooldown());
+        }
+    }
+
+    IEnumerator SprintCooldown()
+    {
+        sprintCharged = false;
+        yield return new WaitForSeconds(1.5f);
+        sprintCharged = true;
     }
 
     // some camera direction nonsense
