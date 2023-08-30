@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MTL_GrayWater
-  m_Shader: {fileID: -6465566751694194690, guid: ea764fabe1d387741bc20a95aa6cb04d, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 0056fc1de1d85e7489693ac8b44cebe2, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -64,6 +64,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _WaterTexture:
+        m_Texture: {fileID: 2800000, guid: 11154d936b05e66498f68fa178c5cfbb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -92,7 +96,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Height: 5
+    - _Height: 0.3
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -114,7 +118,8 @@ Material:
     - _Color2: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _WaterColor: {r: 0.37965468, g: 0.53150886, b: 0.7264151, a: 0}
+    - _WaterColor: {r: 1, g: 0.37924066, b: 0, a: 0}
+    - _WaterColor2: {r: 0.35993233, g: 0.6864579, b: 0.6886792, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &7092916655505528962
 MonoBehaviour:

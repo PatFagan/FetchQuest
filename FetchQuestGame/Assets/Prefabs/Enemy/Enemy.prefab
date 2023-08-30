@@ -45,10 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 975aa3374b28bbb419cb5c7d9e3fd615, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
   cost: 0
-  aiName: Dummy
-  speed: 0
+  target: {fileID: 0}
   targetPos: {x: 0, y: 0, z: 0}
   currentPos: {x: 0, y: 0, z: 0}
   currentTarget: 1
@@ -56,7 +54,8 @@ MonoBehaviour:
   runTimeInSeconds: 1
   running: 0
   goapAgentScript: {fileID: 5098284807710191433}
-  handCollider: {fileID: 0}
+  attack:
+  - {fileID: 2077307352862359183, guid: 23970f328c8b6744391e93f6ee1eaa91, type: 3}
 --- !u!114 &4920926340380040401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,10 +68,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3843cf3ffa551945865f1ede0d616fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
-  cost: 0
-  aiName: Dummy
-  speed: 0
+  cost: 1
+  target: {fileID: 0}
   targetPos: {x: 0, y: 0, z: 0}
   currentPos: {x: 0, y: 0, z: 0}
   currentTarget: 1
@@ -80,8 +77,8 @@ MonoBehaviour:
   runTimeInSeconds: 1
   running: 0
   goapAgentScript: {fileID: 5098284807710191433}
-  attack: []
-  spawnPositions: []
+  attack:
+  - {fileID: 2077307352862359183, guid: bcfe331e76253174db3f4733154b72b9, type: 3}
   maxAttackIndex: 1
 --- !u!1 &8341483387272553307
 GameObject:
@@ -138,10 +135,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcfd64b40da1e594faa4193bbc88a06c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
   health: 3
+  fireMat: {fileID: 2100000, guid: 6a4d81f0714f1eb4b8dbcc7375c35581, type: 2}
 --- !u!114 &8341483387272553310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,14 +164,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0897c8ba17788f140a3ea137ef960a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
   GoapActions:
   - {fileID: 0}
   - {fileID: 0}
   goapActionKeeper: {fileID: 5794879424717835696}
-  pausedGoap: 0
 --- !u!114 &5098284807710191433
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,6 +6,8 @@ public class Enemy : MonoBehaviour
 {
     public int health;
 
+    public Material fireMat;
+
     Rigidbody rigidbody;
 
     // Start is called before the first frame update
@@ -30,6 +32,11 @@ public class Enemy : MonoBehaviour
             // if armor piercing rounds is false
             Destroy(collision.gameObject);
 
+            if (health == 1)
+            {
+                gameObject.GetComponent<MeshRenderer>().material = fireMat;
+            }
+
             // check if dead
             if (health <= 0)
             {
@@ -37,6 +44,7 @@ public class Enemy : MonoBehaviour
             }
         }
     }
+
     IEnumerator Flash()
     {
         Material mat = gameObject.GetComponent<MeshRenderer>().material;

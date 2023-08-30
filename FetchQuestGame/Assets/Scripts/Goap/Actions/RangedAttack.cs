@@ -8,7 +8,6 @@ public class RangedAttack : GoapAction
     // an indicator that the next attack should be something ranged
     
     public GameObject[] attack;
-    public GameObject[] spawnPositions;
     public int maxAttackIndex = 1;
 
     // action constructor, create necessary preconditions
@@ -27,16 +26,15 @@ public class RangedAttack : GoapAction
 
     void Update()
     {
-        //if (PhotonNetwork.isMasterClient)
-        {
-            preconditions["FarFromPlayer"] = goapAgentScript.farFromPlayer;
-            if (running)
-            {
-                goapAgentScript.GetComponent<Animator>().SetTrigger("Ranged");
-                StartCoroutine(endRunning());
-            }
-        }
+        preconditions["FarFromPlayer"] = goapAgentScript.farFromPlayer;
 
+        /*
+        if (running)
+        {
+            goapAgentScript.GetComponent<Animator>().SetTrigger("Ranged");
+            StartCoroutine(endRunning());
+        }
+        */
     }
 
     public override float RunAction()
@@ -49,7 +47,6 @@ public class RangedAttack : GoapAction
         print(target.name);
         attack[0].GetComponent<EnemyProjectile>().playerTarget = target;
         Instantiate(attack[0], transform.position, Quaternion.identity);
-
 
         return runTimeInSeconds;
     }

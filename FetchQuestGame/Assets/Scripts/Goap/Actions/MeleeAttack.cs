@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MeleeAttack : GoapAction
 {
-    public Collider handCollider;
+    //public Collider handCollider;
+    public GameObject[] attack;
 
     // action constructor, create necessary preconditions
     public MeleeAttack()
@@ -22,13 +23,26 @@ public class MeleeAttack : GoapAction
 
     void Update()
     {
-        //if (PhotonNetwork.isMasterClient)
-        {
-            // update preconditions based on goapagent values
-            preconditions["CloseToPlayer"] = goapAgentScript.closeToPlayer;
-        }
+        preconditions["CloseToPlayer"] = goapAgentScript.closeToPlayer;
     }
 
+    public override float RunAction()
+    {
+        print("melee, cost: " + cost);
+        
+        SetTarget(currentTarget);
+
+        // pick a random ranged attack
+        print(target.name);
+        GameObject newAttack = attack[0];
+        newAttack.GetComponent<EnemyProjectile>().playerTarget = target;
+        newAttack.GetComponent<StickToPlayer>().parentPlayer = gameObject.transform;
+        Instantiate(attack[0], transform.position, Quaternion.identity);
+
+        return runTimeInSeconds;
+    }
+
+    /*
     public override float RunAction()
     {
         print("melee, cost: " + cost);
@@ -55,4 +69,5 @@ public class MeleeAttack : GoapAction
     {
         handCollider.enabled = damaging; // enable damage
     }
+    */
 }
