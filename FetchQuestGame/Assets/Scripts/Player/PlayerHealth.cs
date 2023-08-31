@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
     public float health;
     public float maxHealth;
+
+    public GameObject deathUI;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +32,8 @@ public class PlayerHealth : MonoBehaviour
 
             if (health <= 0)
             {
+                gameObject.GetComponent<PlayerMovement>().dead = true;
+                deathUI.SetActive(true);
                 print("death");
             }
         }

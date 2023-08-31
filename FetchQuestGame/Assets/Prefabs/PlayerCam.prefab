@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5892867546055963711}
-  - component: {fileID: 5892867546055963705}
+  - component: {fileID: 5222305435220624932}
   - component: {fileID: 5892867546055963710}
   - component: {fileID: 5892867546055963709}
   - component: {fileID: 5892867546055963704}
@@ -35,7 +35,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5892867546055963705
+--- !u!114 &5222305435220624932
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5892867546055963708}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49c6ad37a7ef3e04dbe15eed9a8621d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f1b74371621d2843b66040032ca3582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   parentPlayer: {fileID: 0}
@@ -73,7 +73,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 61.558983
+  field of view: 46.546234
   orthographic: 0
   orthographic size: 5
   m_Depth: -1

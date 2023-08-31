@@ -32,7 +32,8 @@ public class Revolver : MonoBehaviour
         transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, 
             aimDirection, 5f * Time.deltaTime);
 
-        GunInputs();
+        if (!parentPlayer.GetComponent<PlayerMovement>().dead)
+            GunInputs();
 
         // gun faces camera
         transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, 

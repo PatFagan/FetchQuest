@@ -26,6 +26,9 @@ public class PlayerMovement : MonoBehaviour
 
     public float jumpForce, sprintForce;
 
+    [HideInInspector]
+    public bool dead;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -34,10 +37,10 @@ public class PlayerMovement : MonoBehaviour
         distToGround = GetComponent<Collider>().bounds.extents.y;
         
         // create player camera
-        cameraPrefab.GetComponent<StickToPlayer>().parentPlayer = gameObject.transform;
-        cameraPrefab.name = "Camera" + GameObject.FindGameObjectsWithTag("Player").Length;
+        cameraPrefab.GetComponent<CameraMovement>().parentPlayer = gameObject.transform;
+
         Instantiate(cameraPrefab); 
-        camera = GameObject.Find(cameraPrefab.name+"(Clone)").GetComponent<Transform>();
+        camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Transform>();
 
         // spawn gun
         revolver.GetComponent<Revolver>().parentPlayer = gameObject; // set parent player
@@ -55,10 +58,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        MyInput();
-        Look();
-        Jump();
-        Sprint();
+        if (!dead)
+        {
+            MyInput();
+            Look();
+            Jump();
+            Sprint();
+        }
+        if (dead)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 
     // set axis input values
