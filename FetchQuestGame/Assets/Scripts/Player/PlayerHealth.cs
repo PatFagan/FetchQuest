@@ -10,16 +10,11 @@ public class PlayerHealth : MonoBehaviour
 
     public GameObject deathUI;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Image healthBar;
 
-    // Update is called once per frame
     void Update()
     {
-
+        healthBar.fillAmount = health/maxHealth;
     }
 
     void OnTriggerEnter(Collider collision)

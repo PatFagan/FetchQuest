@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class DeathUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Material defaultMat, animatedMat;
+    public GameObject deathUI;
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
@@ -22,15 +23,9 @@ public class DeathUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         gameObject.GetComponent<Image>().material = defaultMat;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void Retry()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMovement>().Revive();
+        deathUI.SetActive(false);
     }
 }

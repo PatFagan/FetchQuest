@@ -9,7 +9,6 @@ public class Emitter : MonoBehaviour
     public GameObject[] snowflakes;
     public float spawnDelay;
 
-    bool spawnStart = false;
     bool snowing = true;
 
     // Start is called before the first frame update

@@ -4,21 +4,14 @@ using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
-    Rigidbody rigidbody;
     public float projectileSpeed;
     public GameObject playerTarget;
+    public float lifetime;
 
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody = gameObject.GetComponent<Rigidbody>();
-        transform.rotation = playerTarget.transform.rotation;
-        Destroy(gameObject, 3f);
-    }
-
-    void Update()
-    {
-        rigidbody.velocity = -transform.forward * projectileSpeed;
+        Destroy(gameObject, lifetime);
     }
 
     void OnTriggerEnter(Collider collider)

@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GnomeSort : MonoBehaviour
-{
-    bool gnomeRunning = false;
-    
+{    
     void gnomeSort(List<GoapAction> list)
     {
-        gnomeRunning = true;
-
         int i = 0;
 
         while (i < list.Count)
@@ -24,8 +20,6 @@ public class GnomeSort : MonoBehaviour
                 i--;
             }
         }
-
-        gnomeRunning = false;
     }
 
     // swaps two values

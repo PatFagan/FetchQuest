@@ -46,9 +46,7 @@ public class PlayerMovement : MonoBehaviour
         revolver.GetComponent<Revolver>().parentPlayer = gameObject; // set parent player
         Instantiate(revolver);
 
-        // camera cursor settings
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        ResetCursor();
     }
 
     private void FixedUpdate()
@@ -69,7 +67,15 @@ public class PlayerMovement : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            rigidbody.velocity = Vector3.zero;
         }
+    }
+
+    public void ResetCursor()
+    {
+        // camera cursor settings
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // set axis input values
