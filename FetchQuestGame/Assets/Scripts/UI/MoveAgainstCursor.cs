@@ -19,7 +19,7 @@ public class MoveAgainstCursor : MonoBehaviour
     {
         Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-        print(screenPosition);
+        //print(screenPosition);
         screenPosition.y -= 4000f * (moveScalar / 20f);
 
         Vector2 thisPos = new Vector2(transform.position.x, transform.position.z);
