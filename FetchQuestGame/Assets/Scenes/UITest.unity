@@ -2145,7 +2145,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &489064034
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2153,8 +2153,8 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 489064033}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.000000037252903}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6929,6 +6929,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1852946492}
   - component: {fileID: 1852946496}
+  - component: {fileID: 1852946497}
   - component: {fileID: 1852946495}
   - component: {fileID: 1852946494}
   - component: {fileID: 1852946493}
@@ -7036,7 +7037,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7482667652216324306, guid: e2c1f5f0c50c7a94488ba5f1aac17aa2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8b65e9da609826b4e92fc76f0522ec1d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7067,6 +7068,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentPanel: {fileID: 1941027110}
+--- !u!114 &1852946497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852946491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a1436498a82ac740a1ecd8ca9e56ace, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultMat: {fileID: 0}
+  animatedMat: {fileID: 0}
+  caption: {fileID: 489064033}
 --- !u!1 &1858613276
 GameObject:
   m_ObjectHideFlags: 0
@@ -8737,7 +8753,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: caption
+  m_text: apple
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0068b737f9c1a1545859712e1573699d, type: 2}
   m_sharedMaterial: {fileID: 5093500920869171268, guid: 0068b737f9c1a1545859712e1573699d, type: 2}

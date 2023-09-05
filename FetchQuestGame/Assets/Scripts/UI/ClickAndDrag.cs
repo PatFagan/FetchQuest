@@ -9,8 +9,6 @@ public class ClickAndDrag : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     bool dragging = false;
     bool cursorOnButton = false;
 
-    public Transform parentPanel;
-
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
         cursorOnButton = true;
@@ -30,7 +28,6 @@ public class ClickAndDrag : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             if (Input.GetMouseButtonDown(0))
             {
                 dragging = true;
-                gameObject.transform.SetParent(parentPanel);
             }
         }
 
@@ -54,11 +51,7 @@ public class ClickAndDrag : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 {
                     if (gridPanels[i].GetComponent<GridPane>().cursorHovering)
                     {
-                        print("snap to panel");
                         gameObject.transform.position = gridPanels[i].transform.position;
-                        
-                        //gameObject.transform.parent = gridPanels[i].transform.position;
-                        gameObject.transform.SetParent(gridPanels[i].transform);
                     }
                 }
             }

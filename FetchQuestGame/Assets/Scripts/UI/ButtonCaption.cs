@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ButtonTest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ButtonCaption : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Material defaultMat, animatedMat;
 
