@@ -7,11 +7,20 @@ public class CharacterCustomization : MonoBehaviour
 {
     public GameObject characterModel;
     public Slider redSlider, greenSlider, blueSlider;
+    public Slider redPantsSlider, greenPantsSlider, bluePantsSlider;
+    public Slider redBackpackSlider, greenBackpackPantsSlider, blueBackpackPantsSlider;
 
     Color newColor;
 
     // Update is called once per frame
     void Update()
+    {
+        ChangeShirtColor();
+        ChangePantsColor();
+        ChangeBackpackColor();
+    }
+
+    public void ChangeShirtColor()
     {
         newColor = new Color(redSlider.value, greenSlider.value, 
         blueSlider.value, 0f);
@@ -19,8 +28,19 @@ public class CharacterCustomization : MonoBehaviour
         renderer.materials[1].color = newColor;
     }
 
-    public void ChangeShirtColor()
+    public void ChangePantsColor()
     {
-        //renderer.materials[2] = renderer.materials[5];
+        newColor = new Color(redPantsSlider.value, greenPantsSlider.value, 
+        bluePantsSlider.value, 0f);
+        SkinnedMeshRenderer renderer = characterModel.GetComponent<SkinnedMeshRenderer>();
+        renderer.materials[3].color = newColor;
+    }
+
+    public void ChangeBackpackColor()
+    {
+        newColor = new Color(redBackpackSlider.value, greenBackpackPantsSlider.value, 
+        blueBackpackPantsSlider.value, 0f);
+        SkinnedMeshRenderer renderer = characterModel.GetComponent<SkinnedMeshRenderer>();
+        renderer.materials[2].color = newColor;
     }
 }
