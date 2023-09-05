@@ -41,6 +41,20 @@ public class ClickAndDrag : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (Input.GetMouseButtonUp(0))
         {
             dragging = false;
+
+            if (cursorOnButton)
+            {
+                // then snap to grid if on grid panel
+                GameObject[] gridPanels = GameObject.FindGameObjectsWithTag("GridPanel");
+                for (int i = 0; i < gridPanels.Length; i++)
+                {
+                    if (gridPanels[i].GetComponent<GridPane>().cursorHovering)
+                    {
+                        print("snap to panel");
+                        gameObject.transform.position = gridPanels[i].transform.position;
+                    }
+                }
+            }
         }
     }
 }
