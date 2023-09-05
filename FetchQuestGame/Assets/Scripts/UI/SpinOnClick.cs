@@ -6,6 +6,7 @@ public class SpinOnClick : MonoBehaviour
 {
     float initialClickPos;
     float spinDist;
+    public float maxSpinDist;
 
     // Update is called once per frame
     void Update()
@@ -17,15 +18,20 @@ public class SpinOnClick : MonoBehaviour
         }
 
         if(Input.GetMouseButton(0))
-        {
-            spinDist += (Input.mousePosition.x - initialClickPos);
+        {   
+            if (Mathf.Abs(spinDist) < maxSpinDist)
+                spinDist += (Input.mousePosition.x - initialClickPos);
             initialClickPos = Input.mousePosition.x;
         }
 
         // friction
-        if(spinDist > 0)
+        if(spinDist >= 0)
         {
             spinDist--;
+        }
+        else if(spinDist <= 0)
+        {
+            spinDist++;
         }
 
         gameObject.transform.Rotate(new Vector3(0f, -spinDist/200f, 0f));
