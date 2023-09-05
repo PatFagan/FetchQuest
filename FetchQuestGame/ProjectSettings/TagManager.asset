@@ -12,6 +12,7 @@ TagManager:
   - Revolver
   - Bullet
   - WantedSystem
+  - GridPanel
   layers:
   - Default
   - TransparentFX

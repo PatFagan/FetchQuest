@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public bool controller;
+
     Transform camera;
     Transform orientation;
     private Rigidbody rigidbody;
@@ -131,8 +133,19 @@ public class PlayerMovement : MonoBehaviour
     private float desiredX;
     private void Look()
     {
-        float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.fixedDeltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.fixedDeltaTime;
+        float mouseX, mouseY;
+
+        mouseX = Input.GetAxis("Mouse X");
+        mouseY = Input.GetAxis("Mouse Y");
+
+        if (controller)
+        { 
+            mouseX = Input.GetAxis("LookXController");
+            mouseY = Input.GetAxis("LookYController");
+        }
+
+        mouseX *= sensitivity * Time.fixedDeltaTime;
+        mouseY *= sensitivity * Time.fixedDeltaTime;
 
         // Find current look rotation
         Vector3 rot = camera.transform.localRotation.eulerAngles;
