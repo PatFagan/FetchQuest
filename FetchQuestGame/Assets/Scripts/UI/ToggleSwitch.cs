@@ -12,7 +12,8 @@ public class ToggleSwitch : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        switchOn.GetComponent<Image>().color = Color.white;
+        switchOff.GetComponent<Image>().color = Color.blue;
     }
 
     // Update is called once per frame

@@ -12,10 +12,10 @@ public class GridPane : MonoBehaviour
 
     void Start()
     {
-        minX = transform.position.x - 25;
-        maxX = transform.position.x + 25;
-        minY = transform.position.y - 25;
-        maxY = transform.position.y + 25;
+        minX = transform.position.x - 20;
+        maxX = transform.position.x + 20;
+        minY = transform.position.y - 20;
+        maxY = transform.position.y + 20;
     }
 
     void Update()
