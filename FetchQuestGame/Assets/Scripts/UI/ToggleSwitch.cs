@@ -7,7 +7,9 @@ public class ToggleSwitch : MonoBehaviour
 {
     public GameObject switchOn, switchOff;
 
-    bool toggled = false;
+    bool toggled = true;
+
+    public GameObject light;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +21,7 @@ public class ToggleSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        light.SetActive(toggled);
     }
 
     public void Toggle()
