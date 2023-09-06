@@ -12,6 +12,8 @@ public class PlayerHealth : MonoBehaviour
 
     public Image healthBar;
 
+    public bool invincible = false;
+
     void Update()
     {
         healthBar.fillAmount = health/maxHealth;
@@ -23,7 +25,8 @@ public class PlayerHealth : MonoBehaviour
         {
             print("player hit");
             
-            health--;
+            if (!invincible)
+                health--;
 
             if (health <= 0)
             {

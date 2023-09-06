@@ -14,19 +14,10 @@ public class Spawner : MonoBehaviour
 
     bool spawnStart = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //StartCoroutine(Spawning());
-        //NetworkIdentity.AssignClientAuthority(conn);
-        //identity.AssignClientAuthority(conn);
-    }
-
     IEnumerator Spawning()
     {
-        //int index = Random.Range(0, spawnedObjects.Length);
-        //Instantiate(spawnedObjects[index]);
-        GameObject enemy = Instantiate(spawnedObjects[0], transform.position, transform.rotation);
+        int index = Random.Range(0, spawnedObjects.Length);
+        GameObject enemy = Instantiate(spawnedObjects[index], transform.position, transform.rotation);
         yield return new WaitForSeconds(spawnDelay);
         StartCoroutine(Spawning());
     }

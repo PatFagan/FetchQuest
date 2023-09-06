@@ -407,7 +407,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnedObjects:
-  - {fileID: 8341483387272553307, guid: 4c2b0a6fc0fbf394b982d3af9c129345, type: 3}
+  - {fileID: 5673569394972566368, guid: 9b2a16b1d1298f441a059ca60475afc9, type: 3}
+  - {fileID: 8252907584920527892, guid: e8ef3a0ef922aa14985959c844296463, type: 3}
   spawnDelay: 2
   startCircle: {fileID: 33707055152241921}
   text: {fileID: 33707053882017731}

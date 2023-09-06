@@ -49,18 +49,25 @@ public class CameraMovement : MonoBehaviour
     IEnumerator FinishRevive()
     {
         cameraSet = false;
+
+        // start player invulnerability
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<PlayerHealth>().invincible = true;
         
         yield return new WaitForSeconds(1.5f);
 
-        print("hi");
         cameraSet = true;
-        print("ho");
 
-        print("off to work");
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        // reset player health and death bool, and cursor too
         player.GetComponent<PlayerMovement>().dead = false;
         player.GetComponent<PlayerHealth>().health = player.GetComponent<PlayerHealth>().maxHealth;
         player.GetComponent<PlayerMovement>().ResetCursor();
+
+        // resume player vulnerability
+        yield return new WaitForSeconds(1.5f);
+        player.GetComponent<PlayerHealth>().invincible = false;
+
+
     }
 
 }
