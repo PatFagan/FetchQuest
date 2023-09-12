@@ -93,6 +93,15 @@ public class PlayerMovement : MonoBehaviour
         // extra gravity
         rigidbody.AddForce(Vector3.down * 500f);
 
+        if (vertical == 0)
+        {
+            horizontal *= 1.25f;
+        }
+        else if (horizontal == 0)
+        {
+            vertical *= 1.25f;
+        }
+
         // apply forces to move player
         rigidbody.AddForce(orientation.transform.forward * vertical * moveSpeed);
         rigidbody.AddForce(orientation.transform.right * horizontal * moveSpeed);

@@ -3407,9 +3407,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 451219580}
   serializedVersion: 2
-  m_Mass: 10
+  m_Mass: 7
   m_Drag: 1
-  m_AngularDrag: 3
+  m_AngularDrag: 2
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -3507,6 +3507,7 @@ MonoBehaviour:
   maxHealth: 3
   deathUI: {fileID: 1977180785760723969}
   healthBar: {fileID: 685687460}
+  invincible: 0
 --- !u!114 &1721936370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3524,8 +3525,8 @@ MonoBehaviour:
   revolver: {fileID: 2149621050431777591, guid: 1f137048aabf37f409b7f75e49adc863, type: 3}
   cameraPrefab: {fileID: 5892867546055963708, guid: 6e53507f14b37ca44962dadf75583075, type: 3}
   sensitivity: 500
-  moveSpeed: 500
-  jumpForce: 30
+  moveSpeed: 400
+  jumpForce: 25
   sprintForce: 12000
   dead: 0
 --- !u!1 &1786393773
